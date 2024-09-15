@@ -1,0 +1,601 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>git使用 | kingpoem的王国🏰</title><meta name="author" content="王俊琦"><meta name="copyright" content="王俊琦"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="回顾git的学习和使用经验，不断更新中...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git使用">
+<meta property="og:url" content="http://kingpoem.github.io/2024/08/10/git/index.html">
+<meta property="og:site_name" content="kingpoem的王国🏰">
+<meta property="og:description" content="回顾git的学习和使用经验，不断更新中...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://kingpoem.github.io/images/cover/cover_8.jpg">
+<meta property="article:published_time" content="2024-08-10T03:27:53.000Z">
+<meta property="article:modified_time" content="2024-09-15T15:04:15.892Z">
+<meta property="article:author" content="王俊琦">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kingpoem.github.io/images/cover/cover_8.jpg"><link rel="shortcut icon" href="/images/avatar.png"><link rel="canonical" href="http://kingpoem.github.io/2024/08/10/git/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":600,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated.文章过期"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'git使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-15 23:04:15'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.png" onerror="onerror=null;src='images/cover/cover_1.jpeg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/./images/cover/cover_8.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="kingpoem的王国🏰"><span class="site-name">kingpoem的王国🏰</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">git使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-10T03:27:53.000Z" title="发表于 2024-08-10 11:27:53">2024-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-15T15:04:15.892Z" title="更新于 2024-09-15 23:04:15">2024-09-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="git使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>前言：本文是作者学习git的笔记。在一番周转之后，推荐学习路径：</p>
+<ol>
+<li>了解基础概念：<br><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-tutorial.html">Git 教程 - 菜鸟教程</a></li>
+<li>练习分支操作：<br><a target="_blank" rel="noopener" href="https://learngitbranching.js.org/?locale=zh_CN">Git 分支小游戏</a></li>
+<li>工作流管理：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sunyctf/article/details/130587970">Gitflow工作流</a></li>
+<li>约定式提交：<br><a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/zh-hans/v1.0.0/">约定式提交</a></li>
+</ol>
+</blockquote>
+<h2 id="1-学习资料"><a href="#1-学习资料" class="headerlink" title="1. 学习资料"></a>1. 学习资料</h2><ul>
+<li><strong>官方文档</strong>：<a target="_blank" rel="noopener" href="https://git-scm.com/docs">Git 官方文档</a></li>
+<li><strong>Git 教程</strong>：<ul>
+<li><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">Git 教程 - 廖雪峰的官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2">Git 书籍 - Pro Git</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/b1f6c1c4/learn-git-the-super-hard-way">学习Git底层原理 - learn-git-the-super-hard-way</a></li>
+<li><a target="_blank" rel="noopener" href="https://education.github.com/git-cheat-sheet-education.pdf">Git Cheat Sheet</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.gitwiki.org/">Git Wiki</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Git基础"><a href="#2-Git基础" class="headerlink" title="2. Git基础"></a>2. Git基础</h2><h3 id="2-1-查看文档"><a href="#2-1-查看文档" class="headerlink" title="2.1 查看文档"></a>2.1 查看文档</h3><ul>
+<li><strong>查看命令帮助</strong>：<ul>
+<li><code>git &lt;command&gt; --help</code></li>
+<li><code>git help &lt;command&gt;</code></li>
+<li><code>man git-&lt;command&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-安装配置"><a href="#2-2-安装配置" class="headerlink" title="2.2 安装配置"></a>2.2 安装配置</h3><ul>
+<li><strong>配置文件位置</strong>：<ul>
+<li>局部：<code>.git/config</code></li>
+<li>全局：<code>~/.gitconfig</code></li>
+<li>系统：<code>/etc/gitconfig</code></li>
+</ul>
+</li>
+<li><strong><code>git config</code></strong>:<ul>
+<li><code>git config --global user.name &quot;your name&quot;</code>：设置用户名</li>
+<li><code>git config --global user.email &quot;your email&quot;</code>：设置邮箱</li>
+<li><code>git config --global --edit</code>：编辑全局配置文件  </li>
+<li><code>git config --global --unset alias.co</code>：删除全局别名</li>
+<li><code>git config --global alias.co checkout</code>：设置全局别名</li>
+<li><code>git config --list</code>：查看所有配置信息</li>
+<li><code>git config --global --edit</code>：编辑全局配置文件  </li>
+<li><code>git config --global --unset alias.co</code>：删除全局别名</li>
+<li><code>git config --global alias.co checkout</code>：设置全局别名</li>
+<li><code>git config --list</code>：查看所有配置信息</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-工作区、暂存区和版本库"><a href="#2-3-工作区、暂存区和版本库" class="headerlink" title="2.3 工作区、暂存区和版本库"></a>2.3 工作区、暂存区和版本库</h3><ul>
+<li><strong>git status</strong>：查看当前状态<ul>
+<li><code>git status -s</code>：简化输出</li>
+</ul>
+</li>
+<li><strong>git add</strong>：工作区 → 暂存区<ul>
+<li><code>git add . </code>：添加所有文件到暂存区</li>
+<li><code>git add -u</code>：添加所有已修改文件到暂存区</li>
+</ul>
+</li>
+<li><strong>git commit</strong>：暂存区 → 版本库<ul>
+<li><code>git commit -m &quot;commit message&quot;</code>：提交暂存区到版本库</li>
+<li><code>git commit -a -m &quot;commit message&quot;</code>：提交所有已修改文件到版本库</li>
+<li><code>git commit --amend -m &quot;commit message&quot;</code>：修改上次提交</li>
+</ul>
+</li>
+<li><strong>git restore</strong>：恢复文件<ul>
+<li><code>git restore &lt;file&gt;</code>：恢复暂存区文件，<u>工作区受影响</u><blockquote>
+<p><code>git restore ./source/_posts/git使用.md</code>:我在进行代码编辑时，将一部分工作提交到缓存区，然后做了一些修改，这时我想撤销这部分工作，这时就可以使用<code>git restore</code>命令。</p>
+</blockquote>
+</li>
+<li><code>git restore --staged &lt;file&gt;</code>：恢复暂存区文件，<u>工作区不受影响</u></li>
+<li><code>git restore --staged &lt;file&gt;</code>：恢复暂存区文件，<u>工作区不受影响</u></li>
+<li><code>git restore --source &lt;commit-id&gt; &lt;file&gt;</code>：恢复指定提交版本文件，工作区受影响<blockquote>
+<p><code>git restore --source=HEAD~1 ./source/_posts/git使用.md</code>:将上一次提交的<code>git使用.md</code>文件恢复到工作区。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>git reset</strong>：版本库 → 暂存区<ul>
+<li><code>git reset HEAD &lt;file&gt;</code>：取消暂存区文件</li>
+<li><code>git reset --soft HEAD^</code>：取消上一次提交，不影响工作区</li>
+<li><code>git reset --hard HEAD^</code>：撤销上一次提交，影响工作区</li>
+<li><code>git reset --hard &lt;commit-id&gt;</code>：回退到指定提交</li>
+</ul>
+</li>
+<li><strong>git clean</strong>：清理工作区<ul>
+<li><code>git clean -f</code>：强制删除未跟踪文件</li>
+<li><code>git clean -df</code>：强制删除未跟踪目录，会删除空目录</li>
+<li><code>git clean -df</code>：强制删除未跟踪目录，会删除空目录</li>
+<li><code>git clean -d -f</code>：强制删除未跟踪目录及子目录</li>
+</ul>
+</li>
+<li><strong>git diff</strong>：显示当前工作区与暂存区的差异<blockquote>
+<p><code>git d ./*/*/git使用.md</code>：加了别名以后使用</p>
+</blockquote>
+<ul>
+<li><code>git diff HEAD</code>：显示工作区和版本库差异</li>
+<li><code>git diff &lt;commit-id&gt; &lt;commit-id&gt;</code>：显示两个提交间差异</li>
+<li><code>git diff &lt;file-path&gt;</code>:显示文件差异</li>
+<li><code>git diff --name--only</code>：只显示暂存区和工作区差异文件名</li>
+<li><code>git diff --stat</code>：显示文件级别简要统计信息</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-分支操作"><a href="#2-4-分支操作" class="headerlink" title="2.4 分支操作"></a>2.4 分支操作</h3><ul>
+<li><strong>git branch</strong>：分支管理<ul>
+<li><code>git branch -v</code>：查看所有分支，并显示最后一次提交信息</li>
+<li><code>git branch -r</code>：查看远程分支</li>
+<li><code>git branch -a</code>：查看所有分支（包括本地和远程）</li>
+<li><code>git branch --merged</code>：查看已合并分支</li>
+<li><code>git branch --contains &lt;commit-id&gt;</code>：查看包含指定提交的分支</li>
+<li><code>git branch -d &lt;branch-name&gt;</code>：删除分支</li>
+<li><code>git branch -f &lt;branch-name&gt; &lt;commit-id&gt;</code>：强制移动分支指针<blockquote>
+<p><code>git branch -f master HEAD</code>:找回master分支</p>
+</blockquote>
+</li>
+<li><code>git branch -m &lt;old-name&gt; &lt;new-name&gt;</code>：重命名分支</li>
+<li><code>git branch --set-upstream-to=&lt;remote&gt;/&lt;branch&gt;</code>：设置跟踪分支</li>
+<li><code>git branch --unset-upstream</code>：取消跟踪分支</li>
+<li><code>git branch --track &lt;branch-name&gt; &lt;remote&gt;/&lt;branch&gt;</code>：创建远程分支并跟踪</li>
+</ul>
+</li>
+<li><strong>git switch</strong>：切换分支<ul>
+<li><code>git switch -c</code>:创建并切换分支</li>
+<li><code>git switch --detach|-d &lt;commit-id&gt;</code>：分离头指针，<u>工作区不受影响</u></li>
+</ul>
+</li>
+<li><strong>git merge</strong>：合并分支<ul>
+<li><code>git merge &lt;branch-name&gt;</code>：合并指定分支到当前分支</li>
+<li><code>git merge --no-ff &lt;branch-name&gt;</code>：禁用Fast-Forward合并，保留分支历史</li>
+<li><code>git merge --abort</code>：取消合并</li>
+<li><code>git cherry-pick &lt;commit-id&gt;</code>：选择性合并提交</li>
+</ul>
+</li>
+<li><strong>git rebase</strong>：变基操作<ul>
+<li><code>git rebase -i &lt;commit-id&gt;</code>：交互式变基<blockquote>
+<p>pick：保留该提交（默认）<br>squash：将当前提交与前一个提交合并，但保留两个提交的日志信息（需要手动合并日志）<br>fixup：类似于 squash，但会自动丢弃当前提交的日志信息，只保留前一个提交的日志<br>drop：删除该提交</p>
+</blockquote>
+</li>
+<li><code>git rebase --onto &lt;new-base&gt; &lt;branch-name&gt;</code>：变基指定分支到新基</li>
+</ul>
+</li>
+<li><strong>git tag</strong>：标签管理<ul>
+<li><code>git tag -a &lt;tag-name&gt; -m &quot;tag message&quot;</code>：创建标签</li>
+<li><code>git tag -d &lt;tag-name&gt;</code>：删除标签</li>
+<li><code>git tag -l &quot;v1.0.*&quot;</code>：列出所有v1.0版本标签</li>
+<li><code>git tag -a &lt;tag-name&gt; -m &quot;tag message&quot;</code>：创建标签</li>
+<li><code>git tag -d &lt;tag-name&gt;</code>：删除标签</li>
+<li><code>git tag -l &quot;v1.0.*&quot;</code>：列出所有v1.0版本标签</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-5-远端操作"><a href="#2-5-远端操作" class="headerlink" title="2.5 远端操作"></a>2.5 远端操作</h3><ul>
+<li><strong>git remote</strong>：远端管理<ul>
+<li><code>git remote -v</code>：查看所有远程仓库</li>
+<li><code>git remote add &lt;name&gt; &lt;url&gt;</code>：添加远程仓库</li>
+<li><code>git remote remove &lt;name&gt;</code>：删除远程仓库</li>
+<li><code>git remote rename &lt;old-name&gt; &lt;new-name&gt;</code>：重命名远程仓库</li>
+<li><code>git remote show &lt;name&gt;</code>：显示远程仓库信息</li>
+<li><code>git remote update</code>：更新远程仓库信息</li>
+<li><code>git remote -v</code>：查看所有远程仓库</li>
+<li><code>git remote add &lt;name&gt; &lt;url&gt;</code>：添加远程仓库</li>
+<li><code>git remote remove &lt;name&gt;</code>：删除远程仓库</li>
+<li><code>git remote rename &lt;old-name&gt; &lt;new-name&gt;</code>：重命名远程仓库</li>
+<li><code>git remote show &lt;name&gt;</code>：显示远程仓库信息</li>
+<li><code>git remote update</code>：更新远程仓库信息</li>
+</ul>
+</li>
+<li><strong>git clone</strong>：克隆远端仓库<ul>
+<li><code>git clone -b &lt;branch-name&gt; &lt;url&gt;</code>：克隆指定分支</li>
+<li><code>git clone --recurse &lt;url&gt;</code>：克隆含子模块仓库</li>
+</ul>
+</li>
+<li><strong>git fetch</strong>：收取远端变化<ul>
+<li><code>git fetch &lt;name&gt;</code>：拉取远程仓库变化</li>
+<li><code>git fetch &lt;name&gt; &lt;branch-name&gt;</code>：拉取指定分支变化</li>
+<li><code>git fetch --all</code>：拉取所有远程仓库变化</li>
+</ul>
+</li>
+<li><strong>git push</strong>：推送本地变化到远端<ul>
+<li><code>git push &lt;name&gt; &lt;branch-name&gt;</code>：推送指定分支到远程仓库</li>
+<li><code>git push &lt;name&gt; --all</code>：推送所有分支到远程仓库</li>
+<li><code>git push &lt;name&gt; --tags</code>：推送所有标签到远程仓库</li>
+<li><code>git push -u &lt;name&gt; &lt;branch-name&gt;</code>：推送指定分支到远程仓库并设置默认分支</li>
+<li><code>git fetch &lt;name&gt;</code>：拉取远程仓库变化</li>
+<li><code>git fetch &lt;name&gt; &lt;branch-name&gt;</code>：拉取指定分支变化</li>
+<li><code>git fetch --all</code>：拉取所有远程仓库变化</li>
+</ul>
+</li>
+<li><strong>git push</strong>：推送本地变化到远端<ul>
+<li><code>git push &lt;name&gt; &lt;branch-name&gt;</code>：推送指定分支到远程仓库</li>
+<li><code>git push &lt;name&gt; --all</code>：推送所有分支到远程仓库</li>
+<li><code>git push &lt;name&gt; --tags</code>：推送所有标签到远程仓库</li>
+<li><code>git push -u &lt;name&gt; &lt;branch-name&gt;</code>：推送指定分支到远程仓库并设置默认分支</li>
+</ul>
+</li>
+<li><strong>git pull</strong>：<code>git fetch + git merge</code>（或<code>git rebase</code>）<ul>
+<li><code>git pull &lt;name&gt; &lt;branch-name&gt;</code>：拉取指定分支并合并到当前分支</li>
+<li><code>git pull --rebase &lt;name&gt; &lt;branch-name&gt;</code>：拉取指定分支并变基到当前分支</li>
+<li><code>git pull --all</code>：拉取所有分支并合并到当前分支</li>
+<li><code>git pull --rebase --all</code>：拉取所有分支并变基到当前分支</li>
+</ul>
+</li>
+<li><strong>git stash</strong>：暂存区操作<ul>
+<li><code>git stash list</code>：查看暂存区列表</li>
+<li><code>git stash pop</code>：恢复暂存区文件</li>
+<li><code>git stash apply &lt;stash-id&gt;</code>：恢复指定暂存区文件</li>
+<li><code>git stash drop &lt;stash-id&gt;</code>：删除指定暂存区文件</li>
+<li><code>git stash clear</code>：清空暂存区</li>
+</ul>
+</li>
+<li><strong>git submodule</strong>：子模块管理<ul>
+<li><code>git submodule add &lt;url&gt; &lt;path&gt;</code>：添加子模块</li>
+<li><code>git submodule init</code>：初始化子模块</li>
+<li><code>git submodule update</code>：更新子模块</li>
+<li><code>git submodule foreach git &lt;command&gt;</code>：在子模块中执行命令</li>
+<li><code>git submodule status</code>：查看子模块状态</li>
+<li><code>git submodule add &lt;url&gt; &lt;path&gt;</code>：添加子模块</li>
+<li><code>git submodule init</code>：初始化子模块</li>
+<li><code>git submodule update</code>：更新子模块</li>
+<li><code>git submodule foreach git &lt;command&gt;</code>：在子模块中执行命令</li>
+<li><code>git submodule status</code>：查看子模块状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-6-其他命令"><a href="#2-6-其他命令" class="headerlink" title="2.6 其他命令"></a>2.6 其他命令</h3><ul>
+<li><strong>git log</strong>：展示历史，可与<code>git grep</code>配合使用<ul>
+<li><code>git log -p -2</code> 显示每次提交所引入的差异，最近两次提交</li>
+<li><code>git log --oneline</code></li>
+<li><code>git log -S function_name</code></li>
+<li><code>git log --since=2024-8-4</code></li>
+<li><code>git log --since=&quot;2.weeks&quot;</code>：查看最近两周提交记录</li>
+<li><code>git log --until=&quot;2021-01-01&quot;</code>：查看2021年1月1日之前提交记录</li>
+<li><code>git log --graph</code>：查看所有提交记录，图形化显示</li>
+<li><code>git log --decorate</code>：查看所有提交记录，显示分支信息</li>
+<li><code>git log --all</code>：查看所有分支提交记录</li>
+<li><code>git log --grep=&quot;keyword&quot;</code>：查看包含指定关键字的提交记录</li>
+<li><code>git log --pretty=format:&quot;%h - %an, %ar : %s&quot;</code>：自定义日志格式</li>
+<li><code>git log --stat</code>：查看提交统计信息</li>
+<li><code>git log --patch</code>：查看每个提交的具体修改内容</li>
+</ul>
+</li>
+<li><strong>git show</strong>：显示提交内容<ul>
+<li><code>git show &lt;commit-id&gt;</code>：显示指定提交内容</li>
+<li><code>git show HEAD</code>：显示最新提交内容</li>
+<li><code>git show --name-only &lt;commit-id&gt;</code>：显示指定提交修改的文件名</li>
+<li><code>git show --name-status &lt;commit-id&gt;</code>：显示指定提交修改的文件名和状态</li>
+<li><code>git show --stat &lt;commit-id&gt;</code>：显示指定提交统计信息</li>
+<li><code>git show --patch &lt;commit-id&gt;</code>：显示指定提交具体修改内容</li>
+<li><code>git show &lt;commit-id&gt;</code>：显示指定提交内容</li>
+<li><code>git show HEAD</code>：显示最新提交内容</li>
+<li><code>git show --name-only &lt;commit-id&gt;</code>：显示指定提交修改的文件名</li>
+<li><code>git show --name-status &lt;commit-id&gt;</code>：显示指定提交修改的文件名和状态</li>
+<li><code>git show --stat &lt;commit-id&gt;</code>：显示指定提交统计信息</li>
+<li><code>git show --patch &lt;commit-id&gt;</code>：显示指定提交具体修改内容</li>
+</ul>
+</li>
+<li><strong>git blame</strong>：查看贡献者<ul>
+<li><code>git blame &lt;file&gt;</code>：查看指定文件每行最后一次修改的提交记录</li>
+<li><code>git blame -L &lt;start&gt;,&lt;end&gt; &lt;file&gt;</code>：查看指定文件指定行范围的最后一次修改的提交记录</li>
+<li><code>git blame -C &lt;file&gt;</code>：查看指定文件每行最后一次修改的提交记录，并显示代码上下文</li>
+</ul>
+</li>
+<li><strong>git grep</strong>：搜索提交内容<ul>
+<li><code>git grep -n &quot;keyword&quot;</code>：搜索所有提交内容，并显示行号</li>
+<li><code>git grep -e &quot;keyword1&quot; -e &quot;keyword2&quot;</code>：搜索多个关键字</li>
+<li><code>git grep -i &quot;keyword&quot;</code>：搜索不区分大小写</li>
+<li><code>git grep -w &quot;keyword&quot;</code>：只搜索全词匹配</li>
+<li><code>git grep -l &quot;keyword&quot;</code>：只搜索文件名</li>
+<li><code>git grep -c &quot;keyword&quot;</code>：只搜索提交次数</li>
+<li><code>git grep -B &lt;num&gt; &quot;keyword&quot;</code>：显示指定行之前的内容</li>
+<li><code>git grep -A &lt;num&gt; &quot;keyword&quot;</code>：显示指定行之后的内容</li>
+<li><code>git grep -C &lt;num&gt; &quot;keyword&quot;</code>：显示指定行之前和之后的内容</li>
+<li><code>git grep --all-files &quot;keyword&quot;</code>：搜索所有文件</li>
+<li><code>git grep --ignore-case &quot;keyword&quot;</code>：搜索不区分大小写</li>
+<li><code>git grep --max-depth &lt;depth&gt;</code>：搜索指定目录深度</li>
+<li><code>git grep --diff-filter=&lt;filter&gt;</code>：搜索指定文件状态的提交</li>
+<li><code>git grep --break-at-eol</code>：在匹配到关键字时，显示完整行</li>
+<li><code>git grep --extended-regexp</code>：支持正则表达式</li>
+<li><code>git grep --text</code>：搜索二进制文件内容</li>
+<li><code>git grep --line-number</code>：显示匹配行号</li>
+<li><code>git grep --null</code>：显示匹配行号，以<code>0</code>结尾</li>
+<li><code>git grep --pickaxe-regex</code>：支持正则表达式搜索</li>
+<li><code>git blame &lt;file&gt;</code>：查看指定文件每行最后一次修改的提交记录</li>
+<li><code>git blame -L &lt;start&gt;,&lt;end&gt; &lt;file&gt;</code>：查看指定文件指定行范围的最后一次修改的提交记录</li>
+<li><code>git blame -C &lt;file&gt;</code>：查看指定文件每行最后一次修改的提交记录，并显示代码上下文</li>
+</ul>
+</li>
+<li><strong>git grep</strong>：搜索提交内容<ul>
+<li><code>git grep -n &quot;keyword&quot;</code>：搜索所有提交内容，并显示行号</li>
+<li><code>git grep -e &quot;keyword1&quot; -e &quot;keyword2&quot;</code>：搜索多个关键字</li>
+<li><code>git grep -i &quot;keyword&quot;</code>：搜索不区分大小写</li>
+<li><code>git grep -w &quot;keyword&quot;</code>：只搜索全词匹配</li>
+<li><code>git grep -l &quot;keyword&quot;</code>：只搜索文件名</li>
+<li><code>git grep -c &quot;keyword&quot;</code>：只搜索提交次数</li>
+<li><code>git grep -B &lt;num&gt; &quot;keyword&quot;</code>：显示指定行之前的内容</li>
+<li><code>git grep -A &lt;num&gt; &quot;keyword&quot;</code>：显示指定行之后的内容</li>
+<li><code>git grep -C &lt;num&gt; &quot;keyword&quot;</code>：显示指定行之前和之后的内容</li>
+<li><code>git grep --all-files &quot;keyword&quot;</code>：搜索所有文件</li>
+<li><code>git grep --ignore-case &quot;keyword&quot;</code>：搜索不区分大小写</li>
+<li><code>git grep --max-depth &lt;depth&gt;</code>：搜索指定目录深度</li>
+<li><code>git grep --diff-filter=&lt;filter&gt;</code>：搜索指定文件状态的提交</li>
+<li><code>git grep --break-at-eol</code>：在匹配到关键字时，显示完整行</li>
+<li><code>git grep --extended-regexp</code>：支持正则表达式</li>
+<li><code>git grep --text</code>：搜索二进制文件内容</li>
+<li><code>git grep --line-number</code>：显示匹配行号</li>
+<li><code>git grep --null</code>：显示匹配行号，以<code>0</code>结尾</li>
+<li><code>git grep --pickaxe-regex</code>：支持正则表达式搜索</li>
+</ul>
+</li>
+<li><strong>git shortlog</strong>：统计贡献<ul>
+<li><code>git shortlog -sne</code>：统计提交者、邮箱、贡献数量</li>
+</ul>
+</li>
+<li><strong>git archive</strong>：创建归档文件<ul>
+<li><code>git archive --format=tar.gz --output=project.tar.gz &lt;commit-id&gt;</code>：创建指定提交的<code>.tar.gz</code>文件</li>
+<li><code>git archive --format=zip --output=project.zip &lt;commit-id&gt;</code>：创建指定提交的<code>.zip</code>文件</li>
+<li><code>git shortlog -sne</code>：统计提交者、邮箱、贡献数量</li>
+</ul>
+</li>
+<li><strong>git archive</strong>：创建归档文件<ul>
+<li><code>git archive --format=tar.gz --output=project.tar.gz &lt;commit-id&gt;</code>：创建指定提交的<code>.tar.gz</code>文件</li>
+<li><code>git archive --format=zip --output=project.zip &lt;commit-id&gt;</code>：创建指定提交的<code>.zip</code>文件</li>
+</ul>
+</li>
+<li><strong>git bisect</strong>：在版本树上二分查找定位bug</li>
+<li><strong>git gc&#x2F;prune&#x2F;fsck</strong>：系统检查和垃圾清理</li>
+</ul>
+<h3 id="2-7-Git-别名"><a href="#2-7-Git-别名" class="headerlink" title="2.7 Git 别名"></a>2.7 Git 别名</h3><ul>
+<li><p><strong>配置别名</strong>：使用<code>git config --global alias.&lt;alias-name&gt; &quot;&lt;command&gt;&quot;</code></p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<blockquote>
+<p>lg st ll last cm rv ddv gl se</p>
+</blockquote>
+<ol>
+<li><code>git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;</code>:查看分支历史，并以颜色、图形化、自定义格式显示</li>
+<li><code>git config --global alias.st &#39;status -s&#39;</code>:查看状态简化输出</li>
+<li><code>git config --global alias.ll &#39;log --oneline&#39;</code>:显示简短的提交记录</li>
+<li><code>git config --global alias.last &#39;log -1 HEAD --stat&#39;</code>:显示最新提交信息和统计信息</li>
+<li><code>git config --global alias.cm &#39;commit -m&#39;</code>:快速提交</li>
+<li><code>git config --global alias.rv &#39;remote -v&#39;</code>:查看远程仓库信息</li>
+<li><code>git config --global alias.d &#39;diff&#39;</code>:快速查看差异</li>
+<li><code>git config --global alias.dv &#39;difftool -t vimdiff -y&#39;</code>:使用vimdiff工具查看差异<blockquote>
+<p> 示例：<code>git dv 33559c5 ca1494d file1</code></p>
+</blockquote>
+</li>
+<li><code>git config --global alias.gl &#39;config --global -l&#39;</code>:查看全局配置信息</li>
+<li><code>git config --global alias.se &#39;!git rev-list --all | xargs git grep -F&#39;</code>:搜索所有提交内容</li>
+</ol>
+</li>
+<li><p><strong>编辑别名</strong>: 使用<code>git config --global --edit</code></p>
+</li>
+<li><p><strong>删除别名</strong>：使用<code>git config --global --unset alias.&lt;alias-name&gt;</code></p>
+</li>
+</ul>
+<h3 id="2-8-gitignore"><a href="#2-8-gitignore" class="headerlink" title="2.8 gitignore"></a>2.8 gitignore</h3><ul>
+<li><strong>创建.gitignore文件</strong>：在仓库中创建<code>.gitignore</code>文件，定义不需要Git跟踪的文件和目录</li>
+<li><strong>规则示例</strong>：<ul>
+<li>忽略所有<code>.cpp</code>文件：<code>*.cpp</code></li>
+<li>忽略特定目录：<code>folder/*</code></li>
+<li>不忽略特定文件：<code>!special.cpp</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-9-服务器连接"><a href="#2-9-服务器连接" class="headerlink" title="2.9 服务器连接"></a>2.9 服务器连接</h3><ul>
+<li><strong>SSH方式连接</strong>：在ssh连接github后，就可以使用<code>git clone git@hostname:/path/to/repository/.git</code></li>
+<li><strong>配置远端仓库</strong>：在本地仓库中配置<code>git remote add &lt;name&gt; user@hostname:/path/to/repository/.git</code></li>
+</ul>
+<h3 id="2-10-其他技巧"><a href="#2-10-其他技巧" class="headerlink" title="2.10 其他技巧"></a>2.10 其他技巧</h3><ul>
+<li><strong>Git LFS</strong>：用于管理大文件</li>
+<li><strong>提交签名</strong>：防止提交被伪造</li>
+<li><strong>GitHub Actions</strong>：CI&#x2F;CD自动化工具</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://kingpoem.github.io">王俊琦</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://kingpoem.github.io/2024/08/10/git/">http://kingpoem.github.io/2024/08/10/git/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kingpoem.github.io" target="_blank">kingpoem的王国🏰</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a></div><div class="post_share"><div class="social-share" data-image="/./images/cover/cover_8.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>请作者喝一杯咖啡</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/images/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/08/12/conda/" title="conda"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_11.jpg" onerror="onerror=null;src='/images/cover/cover_1.jpeg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">conda</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/05/toy/" title="05后的童年回忆——玩具篇"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_7.png" onerror="onerror=null;src='/images/cover/cover_1.jpeg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">05后的童年回忆——玩具篇</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/08/02/cmake/" title="cmake学习"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_6.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-09-15</div><div class="title">cmake学习</div></div></a></div><div><a href="/2024/08/12/conda/" title="conda"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_11.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-09-15</div><div class="title">conda</div></div></a></div><div><a href="/2024/07/18/network/" title="计算机网络学习"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_3.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-09-15</div><div class="title">计算机网络学习</div></div></a></div><div><a href="/2024/08/12/pip/" title="pip命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_4.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-09-15</div><div class="title">pip命令</div></div></a></div><div><a href="/2024/07/11/word/" title="Word排版——从制作一份期末试卷给同学模考开始"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_2.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-09-15</div><div class="title">Word排版——从制作一份期末试卷给同学模考开始</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.png" onerror="this.onerror=null;this.src='/images/cover/cover_1.jpeg'" alt="avatar"/></div><div class="author-info__name">王俊琦</div><div class="author-info__description">每个人都只有一个使命，那就是寻找自我，无论最终成为诗人还是疯子、先知还是罪犯。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kingpoem"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kingpoem" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我们正处在一个一个伟大的王朝，一个艰难的王朝，一个充满爱和正义、希望与绝望并存的王朝。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99"><span class="toc-text">1. 学习资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Git%E5%9F%BA%E7%A1%80"><span class="toc-text">2. Git基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%9F%A5%E7%9C%8B%E6%96%87%E6%A1%A3"><span class="toc-text">2.1 查看文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-text">2.2 安装配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E3%80%81%E6%9A%82%E5%AD%98%E5%8C%BA%E5%92%8C%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-text">2.3 工作区、暂存区和版本库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="toc-text">2.4 分支操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E8%BF%9C%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="toc-text">2.5 远端操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="toc-text">2.6 其他命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-Git-%E5%88%AB%E5%90%8D"><span class="toc-text">2.7 Git 别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-gitignore"><span class="toc-text">2.8 gitignore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E6%8E%A5"><span class="toc-text">2.9 服务器连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-%E5%85%B6%E4%BB%96%E6%8A%80%E5%B7%A7"><span class="toc-text">2.10 其他技巧</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('/./images/cover/cover_8.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 王俊琦</div><div class="footer_custom_text">我渴望有人至死都暴烈地爱我，明白爱和死一样伟大，并永远站在我身边。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 't6qz5lUN2i19KNsgW39p76u8-gzGzoHsz',
+      appKey: 'HlT3SpV7IKr8AoJnK1anKj9a',
+      avatar: 'monsterid',
+      serverURLs: 'https://t6qz5lun.lc-cn-n1-shared.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="略略略,爱你,爱你哟,丁香花,紫罗兰,薰衣草,郁金香,樱花,海棠,风信子,茉莉,百合,蘋果,玫瑰,雏菊,彼岸花,牡丹,虞美人,昙花,凌霄花,铃兰,水仙,山茶花,芍药,菊花,金银花,桂花,菖蒲,月季,紫藤,鸢尾,蝴蝶兰,珊瑚藤,文心兰,耧斗菜,马蹄莲,波斯菊,蜀葵,龙吐珠,非洲紫罗兰,球兰,锦带花,嘉兰,三色堇,洋桔梗,玉簪花,蟹爪兰,蕾丝花,白鹃梅" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
