@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>PPT学习笔记</title>
+      <link href="/2024/10/09/PPT/"/>
+      <url>/2024/10/09/PPT/</url>
+      
+        <content type="html"><![CDATA[<p>学习地址：</p><p><a href="https://www.bilibili.com/video/BV1w54y1Q7cZ/?share_source=copy_web&vd_source=4e6e3d05c54fbafa49b2a00b5cc81815">PPT教程 | PPT高手之路，零基础做出高逼格PPT，免费PPT设计制作技巧教学！OFFICE&#x2F;WPS&#x2F;演示&#x2F;幻灯片&#x2F;PPT模板&#x2F;keynote&#x2F;汇报&#x2F;总结</a></p><h3 id="PPT-中刚开始容易忽视的概念"><a href="#PPT-中刚开始容易忽视的概念" class="headerlink" title="PPT 中刚开始容易忽视的概念"></a>PPT 中刚开始容易忽视的概念</h3><ol><li>母版：母版是指PPT的基础模板，它包含了所有页面的基本设置，如背景、字体、颜色、布局、动画、透明度等。</li><li>模板：模板是指PPT的布局模板，它是指一套完整的PPT模板，包括了所有页面的基本设置，如背景、字体、颜色、布局、动画、透明度等。</li><li>布局：布局是指PPT页面的排版方式，它决定了PPT页面的版式、版心、版式。</li><li>占位符：占位符是指PPT页面上用来插入其他内容的空白区域，它可以用来插入图片、形状、表格、文本等。</li><li>wps 与 office 的关系和区别</li></ol><h3 id="PPT-默认设置"><a href="#PPT-默认设置" class="headerlink" title="PPT 默认设置"></a>PPT 默认设置</h3><ol><li>外观</li><li>150次撤回</li><li>自动保存</li><li>字体设置</li><li>标尺，参考线，网格线</li><li>插入形状为默认形状</li><li>图片压缩</li><li>导出</li></ol><h3 id="PPT-快捷键"><a href="#PPT-快捷键" class="headerlink" title="PPT 快捷键"></a>PPT 快捷键</h3><p>左手键盘，右手鼠标</p><ol><li><code>shift</code> 水平&#x2F;竖直移动，等比例放大缩小（点击生成），旋转 15 度</li><li><code>ctrl+D</code> 快速复制（复制空间和距离）</li><li><code>ctrl+鼠标拖拽</code> 复制</li><li><code>ctrl+m</code>&#x2F;<code>enter</code> 复制页面</li><li><code>ctrl+g</code> 组合</li><li><code>ctrl+shift+g</code> 取消组合</li><li><code>ctrl+y</code> 撤销</li><li><code>ctrl+shift+复制</code> 水平复制</li><li><code>ctrl+shift+alt+放大</code> 等比例中心放大</li><li><code>ctrl+shift+c``ctrl+shift+v</code> 格式刷</li><li><code>ctrl+[``ctrl+]``ctrl+shift+[</code> 向上&#x2F;向下移动一层&#x2F;向上移动一层</li><li><code>=lorem()</code> 自动生成文本</li></ol><h3 id="形状组合"><a href="#形状组合" class="headerlink" title="形状组合"></a>形状组合</h3><p>内置 200 多种</p><ol><li>合并形状</li></ol><ul><li>结合: 两个形状合并变成一个形状</li><li>组合: 删除重合部分，保留未重合部分</li><li>拆分: 重合部分和未重合部分拆分成三个部分</li><li>相交: 只保留重合区域</li><li>剪除: 保留先选择的图形，删除后选择的图形</li></ul><ol start="2"><li>绘制图标<br>图标下载:阿里巴巴矢量图标库</li></ol><h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>底纹</p><p>框线</p><p>单元格</p><ol><li>主题色从 logo 中获取（取色器）</li><li>内容行双色交替（白色+白色与logo色间接中最接近白色的色）</li><li>内框线虚化（内框线：0.5磅 + 笔颜色 白色 背景1 深色25%），外框线加粗（2.25磅 + 深黑色）</li><li>字体：微软雅黑 + 标题行白色 + 内容行次一级黑色 + 标题行字大于内容行 + 居中</li></ol><h3 id="编辑顶点"><a href="#编辑顶点" class="headerlink" title="编辑顶点"></a>编辑顶点</h3><ul><li>顶点<ol><li>平滑顶点-两个空点在同一条直线上且长度一致</li><li>直线点-两个空点在同一条直线上且长度不一致</li><li>角部顶点-两个空点不在同一直线上且长度不一致</li></ol></li><li>线段<ol><li>抻直弓形</li><li>曲线段</li><li>开放路径</li></ol></li></ul><h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>遮罩动画</p><p>3D 动画</p><h3 id="图片获取"><a href="#图片获取" class="headerlink" title="图片获取"></a>图片获取</h3><p>手机壁纸</p><p>摄影协会</p><h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><p>图片墙</p><h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><p>思源黑体</p><h3 id="相关软件"><a href="#相关软件" class="headerlink" title="相关软件"></a>相关软件</h3><p>画图3D 导出 .3mf 文件</p><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>地图素材注意合法</p><h3 id="第三方辅助软件"><a href="#第三方辅助软件" class="headerlink" title="第三方辅助软件"></a>第三方辅助软件</h3><p>Canva 可画</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vim</title>
       <link href="/2024/09/21/vim/"/>
       <url>/2024/09/21/vim/</url>
