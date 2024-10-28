@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>python 组第一次授课前夕的网络问题</title>
+      <link href="/2024/10/28/vmf-network/"/>
+      <url>/2024/10/28/vmf-network/</url>
+      
+        <content type="html"><![CDATA[<h2 id="虚拟机-vmware-网络配置"><a href="#虚拟机-vmware-网络配置" class="headerlink" title="虚拟机 vmware 网络配置"></a>虚拟机 vmware 网络配置</h2><p><img src="/./images/vmf-network/ipv4.png"></p><p><img src="/.images/vmf-network/private_ipv4.png"></p><ul><li><strong>回送地址</strong>（loopback address）：127.0.0.1，用于主机之间通信，表示本机。无论什么程序，一旦使用回送地址发送数据，协议软件立即返回之，不进行任何网络传输。含网络号127的分组不能出现在任何网络上。<code>Ping 127.0.0.1</code> 如果反馈信息失败,说明你的网卡不能和IP协议栈进行通信。</li><li><strong>广播地址</strong>（broadcast address）：255.255.255.255，用于网络广播，表示整个网络。任何一台计算机向该地址发送数据，该数据将被该网络上的所有计算机接收。</li><li><strong>网络地址</strong>（network address）：192.168.0.0&#x2F;24，用于局域网内通信，表示该网络。</li><li><strong>子网掩码</strong>（subnet mask）：255.255.255.0，用于标识网络地址的哪些位标识主机，哪些位标识网络。<br>TCP&#x2F;IP规定，主机号全为”1”的网络地址用于广播之用，叫做广播地址。所谓广播，指同时向同一子网所有主机发送报文。</li></ul><p><img src="https://www.bilibili.com/video/BV11M4y1J7zP/?share_source=copy_web&vd_source=4e6e3d05c54fbafa49b2a00b5cc81815" alt="【【虚拟机网络模式】NAT | NAT网络 | 桥接Bridged | 内部网络Internal | 仅主机(Host-Only)】 "></p><p><img src="https://www.cnblogs.com/bokers/p/15763286.html" alt="vmware 网络配置"></p><h2 id="局域网内文件传输"><a href="#局域网内文件传输" class="headerlink" title="局域网内文件传输"></a>局域网内文件传输</h2><p>两台计算机在同一局域网内</p><p>需要传输文件的一方：</p><p>windows 系统下：<code>ipconfig</code>查看 ipv4 地址</p><p>在需要传输的文件目录下打开 cmd 输入：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server 8000</span><br></pre></td></tr></table></figure><p>接受文件的一方：</p><p>在浏览器地址栏中输入：ipv4:8000</p><p>即可看到文件列表，点击文件名即可下载文件。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于 matplotliib 的一点小事</title>
       <link href="/2024/10/28/matplotlib/"/>
       <url>/2024/10/28/matplotlib/</url>
