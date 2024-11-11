@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>QQMusic-CLI-1.md | kingpoem的王国🏰</title><meta name="author" content="王俊琦"><meta name="copyright" content="王俊琦"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="阶段性记录QQMusic-CLI的开发日记，内容较杂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QQMusic-CLI-1.md">
+<meta property="og:url" content="http://kingpoem.github.io/2024/11/08/QQMusic-CLI-1-md/index.html">
+<meta property="og:site_name" content="kingpoem的王国🏰">
+<meta property="og:description" content="阶段性记录QQMusic-CLI的开发日记，内容较杂">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg%20./images/cover/cover_2.jpeg">
+<meta property="article:published_time" content="2024-11-08T07:28:26.000Z">
+<meta property="article:modified_time" content="2024-11-11T04:13:47.064Z">
+<meta property="article:author" content="王俊琦">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg%20./images/cover/cover_2.jpeg"><link rel="shortcut icon" href="/images/avatar.png"><link rel="canonical" href="http://kingpoem.github.io/2024/11/08/QQMusic-CLI-1-md/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":600,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated.文章过期"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'QQMusic-CLI-1.md',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-11 12:13:47'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myStyle.css"><!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.png" onerror="onerror=null;src='images/cover/cover_1.jpeg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg ./images/cover/cover_2.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="kingpoem的王国🏰"><span class="site-name">kingpoem的王国🏰</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">QQMusic-CLI-1.md</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-08T07:28:26.000Z" title="发表于 2024-11-08 15:28:26">2024-11-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-11T04:13:47.064Z" title="更新于 2024-11-11 12:13:47">2024-11-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="QQMusic-CLI-1.md"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="关于-C-的一些知识"><a href="#关于-C-的一些知识" class="headerlink" title="关于 C++ 的一些知识"></a>关于 C++ 的一些知识</h2><h3 id="链接-链接性（Linkage）-指的是符号（如变量和函数）在不同翻译单元之间的可见性。C-C-中有三种链接性："><a href="#链接-链接性（Linkage）-指的是符号（如变量和函数）在不同翻译单元之间的可见性。C-C-中有三种链接性：" class="headerlink" title="链接 链接性（Linkage） 指的是符号（如变量和函数）在不同翻译单元之间的可见性。C&#x2F;C++中有三种链接性："></a>链接 <strong>链接性（Linkage）</strong> 指的是符号（如变量和函数）在不同翻译单元之间的可见性。C&#x2F;C++中有三种链接性：</h3><ol>
+<li><strong>内部链接性（Internal Linkage）</strong>：符号只能在定义它的翻译单元内可见。</li>
+<li><strong>外部链接性（External Linkage）</strong>：符号可以在多个翻译单元之间共享。默认情况下，函数和全局变量具有外部链接性。</li>
+<li><strong>无链接性（No Linkage）</strong>：符号只能在定义它的块内可见。局部变量和函数参数具有无链接性。</li>
+</ol>
+<p>对于全局变量和函数，有以下关键字可用于指定链接性：</p>
+<ol>
+<li><code>static</code><br><code>static</code> 修饰的全局变量和函数具有内部链接性，即只在它所处的翻译单元内可见。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> a = <span class="number">100</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">float</span> b = <span class="number">3.14f</span>;</span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">print</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>extern</code><br><code>extern</code> 修饰的全局变量和函数具有外部链接性，即可以在多个翻译单元之间共享。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> a = <span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="type">int</span> <span class="title">printf</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>他们的定义可以在自身的翻译单元，也可以在别的翻译单元中。</p>
+<ol start="3">
+<li><code>const</code><br><code>const</code> 修饰全局变量除了指定其为常量以外，还使其默认具有内部链接性，但可以显示指定 <code>extern</code> 使其具有外部链接性。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">42</span>;           <span class="comment">// 具有内部链接性</span></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">int</span> b = <span class="number">42</span>;    <span class="comment">// 具有内部链接性</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> c = <span class="number">42</span>;    <span class="comment">// 具有外部链接性</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><code>inline</code><br><code>inline</code> 修饰符修饰的函数和变量具有外部链接性，与 <code>extern</code> 不同，<code>inline</code> 允许函数被定义多次，但是每个定义必须相同，称作外部静态链接。在此之前，如果把函数的实现和全局变量定义也写在头文件中，那么函数和变量就会被多个翻译单元同时定义，造成重复定义。使用 <code>inline</code> 后，函数的实现和变量定义就可以写在头文件中。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> TEST_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEST_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="type">int</span> a = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这个头文件就不会引起重复定义。</p>
+<p><strong>库文件</strong>是用于在不同程序中重用代码而产生的，具体分为<strong>静态链接库</strong>和<strong>动态链接库</strong>两种。<br><strong>动态库</strong>和<strong>静态库</strong>是两种用于代码重用和共享的库文件形式。他们在编译和链接过程中具有不同的行为和用途。<br><strong>静态库</strong>是在编译时将库的代码复制到最终可执行文件中。静态库通常具有 <code>.a</code> 或 <code>.lib</code> 后缀。</p>
+<ul>
+<li><strong>编译时链接</strong>：静态库在编译时被链接到可执行文件中。</li>
+<li><strong>独立性</strong>：生成的可执行文件包含所有必要的库代码，因此在运行是不需要依赖外部库文件。</li>
+<li><strong>文件大小</strong>：大。</li>
+<li><strong>更新困难</strong>：如果库代码需要更新，必须重新编译所有使用该库的可执行文件。</li>
+</ul>
+<p><strong>动态库</strong>是在运行时由操作系统加载到内存中。动态库通常具有 <code>.so</code> 或 <code>.dll</code> 后缀。</p>
+<ul>
+<li><strong>运行时链接</strong>：动态库在运行时被链接到可执行文件中。</li>
+<li><strong>共享性</strong>：多个可执行文件可以共享同一个动态库，减少内存占用和磁盘空间。</li>
+<li><strong>文件大小</strong>：小。</li>
+<li><strong>更新方便</strong>：只需更新动态库文件。</li>
+</ul>
+<h3 id="GDB-调试"><a href="#GDB-调试" class="headerlink" title="GDB 调试"></a>GDB 调试</h3><h2 id="FFMpeg"><a href="#FFMpeg" class="headerlink" title="FFMpeg"></a>FFMpeg</h2><p><code>FFmpeg</code> 是一个强大的多媒体处理工具，广泛用于视频和音频的转换、处理等操作。以下是一些常用的 <code>FFmpeg</code> 参数：</p>
+<h3 id="1-输入和输出参数"><a href="#1-输入和输出参数" class="headerlink" title="1. 输入和输出参数"></a>1. 输入和输出参数</h3><ul>
+<li><code>-i &lt;input_file&gt;</code>：指定输入文件。</li>
+<li><code>&lt;output_file&gt;</code>：指定输出文件（通常放在参数的最后）。</li>
+</ul>
+<h3 id="2-格式转换"><a href="#2-格式转换" class="headerlink" title="2. 格式转换"></a>2. 格式转换</h3><ul>
+<li><code>-f &lt;format&gt;</code>：指定输出格式，例如 <code>mp4</code>、<code>mp3</code>、<code>wav</code> 等。</li>
+</ul>
+<h3 id="3-视频编码参数"><a href="#3-视频编码参数" class="headerlink" title="3. 视频编码参数"></a>3. 视频编码参数</h3><ul>
+<li><code>-c:v &lt;codec&gt;</code>：指定视频编码器，比如 <code>libx264</code>、<code>libx265</code>、<code>mpeg4</code>。</li>
+<li><code>-b:v &lt;bitrate&gt;</code>：指定视频比特率，比如 <code>1M</code> 表示 1 Mbps。</li>
+<li><code>-r &lt;fps&gt;</code>：设置视频帧率（如 <code>30</code>、<code>60</code> 等）。</li>
+<li><code>-s &lt;resolution&gt;</code>：设置分辨率（如 <code>1920x1080</code>）。</li>
+<li><code>-crf &lt;value&gt;</code>：恒定速率因子，控制视频质量（范围通常是 <code>0-51</code>，越低质量越好，常用 <code>23</code> 左右）。</li>
+<li><code>-preset &lt;speed&gt;</code>：设置编码速度，例如 <code>ultrafast</code>、<code>superfast</code>、<code>veryfast</code>、<code>faster</code>、<code>fast</code>、<code>medium</code>、<code>slow</code>、<code>slower</code>、<code>veryslow</code>。越快文件越大，但编码速度越快。</li>
+</ul>
+<h3 id="4-音频编码参数"><a href="#4-音频编码参数" class="headerlink" title="4. 音频编码参数"></a>4. 音频编码参数</h3><ul>
+<li><code>-c:a &lt;codec&gt;</code>：指定音频编码器，比如 <code>aac</code>、<code>mp3</code>、<code>pcm_s16le</code>。</li>
+<li><code>-b:a &lt;bitrate&gt;</code>：指定音频比特率，比如 <code>128k</code>。</li>
+<li><code>-ar &lt;rate&gt;</code>：设置音频采样率，比如 <code>44100</code>。</li>
+<li><code>-ac &lt;channels&gt;</code>：设置音频通道数，比如 <code>1</code>（单声道）或 <code>2</code>（立体声）。</li>
+</ul>
+<h3 id="5-截取和裁剪"><a href="#5-截取和裁剪" class="headerlink" title="5. 截取和裁剪"></a>5. 截取和裁剪</h3><ul>
+<li><code>-ss &lt;time&gt;</code>：设置开始时间，格式如 <code>00:01:30</code> 表示从 1 分 30 秒处开始。</li>
+<li><code>-to &lt;time&gt;</code>：设置结束时间。</li>
+<li><code>-t &lt;duration&gt;</code>：设置持续时间，比如 <code>00:00:10</code> 表示截取 10 秒长的视频。</li>
+<li><code>-vf &quot;crop=w:h:x:y&quot;</code>：裁剪视频的宽、高和起始位置。例如，<code>crop=1920:1080:0:0</code> 表示裁剪 1920x1080 的区域，从左上角开始。</li>
+</ul>
+<h3 id="6-缩放与旋转"><a href="#6-缩放与旋转" class="headerlink" title="6. 缩放与旋转"></a>6. 缩放与旋转</h3><ul>
+<li><code>-vf &quot;scale=&lt;width&gt;:&lt;height&gt;&quot;</code>：调整视频分辨率。</li>
+<li><code>-vf &quot;transpose=&lt;value&gt;&quot;</code>：旋转视频（0&#x3D;90° 顺时针，1&#x3D;90° 逆时针，2&#x3D;水平翻转，3&#x3D;垂直翻转）。</li>
+</ul>
+<h3 id="7-其他常用参数"><a href="#7-其他常用参数" class="headerlink" title="7. 其他常用参数"></a>7. 其他常用参数</h3><ul>
+<li><code>-an</code>：去除音频。</li>
+<li><code>-vn</code>：去除视频。</li>
+<li><code>-y</code>：自动覆盖输出文件。</li>
+<li><code>-threads &lt;num&gt;</code>：设置线程数来加速处理。</li>
+<li><code>-filter_complex</code>：用于更复杂的滤镜操作（如叠加、拼接）。</li>
+</ul>
+<h3 id="8-示例"><a href="#8-示例" class="headerlink" title="8. 示例"></a>8. 示例</h3><ul>
+<li><strong>转换格式</strong>：<code>ffmpeg -i input.mp4 output.avi</code></li>
+<li><strong>截取视频</strong>：<code>ffmpeg -i input.mp4 -ss 00:00:30 -t 10 output.mp4</code></li>
+<li><strong>改变分辨率</strong>：<code>ffmpeg -i input.mp4 -vf scale=1280:720 output.mp4</code></li>
+<li><strong>压缩视频</strong>：<code>ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4</code></li>
+<li><strong>提取音频</strong>：<code>ffmpeg -i input.mp4 -vn -acodec mp3 output.mp3</code></li>
+</ul>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><h2 id="Linux-进阶"><a href="#Linux-进阶" class="headerlink" title="Linux 进阶"></a>Linux 进阶</h2><ol>
+<li>ps</li>
+<li>htop</li>
+</ol>
+<ul>
+<li><C-z> 挂起进程</li>
+<li>jobs 后台运行 </li>
+<li>fg %1<br><strong>nuhup</strong><br>在命令后加 <code>&amp;</code> 符号，可以将命令放入后台运行。</li>
+</ul>
+<p><strong>systemd</strong> systemd status<br>jounalctl -eu <unit> 查看某个服务最后的日志</p>
+<h3 id="创建一个自己的服务"><a href="#创建一个自己的服务" class="headerlink" title="创建一个自己的服务"></a>创建一个自己的服务</h3><p><code>sudo vim /etc/systemd/system/myservice.service</code></p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/myservice</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>重载配置文件<br><code>sudo systemctl daemon-reload</code></p>
+<p>使用 <code>systemctl</code> 命令启动、停止、重启服务<br><code>sudo systemctl enable/disable ping</code><br><code>sudo systemctl start/stop/restart myservice</code></p>
+<h3 id="用户和权限"><a href="#用户和权限" class="headerlink" title="用户和权限"></a>用户和权限</h3><p><code>/etc/passwd</code> 包含了所有用户的信息，包括用户名、密码、UID、GID、描述、家目录、登录 shell 等。<br><code>etc/group</code> 包含了所有用户组的信息，包括组名、GID、包含的用户等。</p>
+<p>把用户加入<code>docker</code>组，可以免密码使用<code>docker</code>命令。</p>
+<p><code>useradd</code> 命令用于创建用户，<code>-m</code> 参数用于创建用户的家目录。<br><code>usermod name -aG group username</code> 命令用于修改用户信息。<br><code>userdel</code> 命令用于删除用户。</p>
+<p><code>ls</code> 硬链接数 所有者 所有组</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://kingpoem.github.io">王俊琦</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://kingpoem.github.io/2024/11/08/QQMusic-CLI-1-md/">http://kingpoem.github.io/2024/11/08/QQMusic-CLI-1-md/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kingpoem.github.io" target="_blank">kingpoem的王国🏰</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg ./images/cover/cover_2.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>请作者喝一杯咖啡</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/images/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/11/11/alchemist-1/" title="alchemist_1"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/alchemist_1/cover.png" onerror="onerror=null;src='/images/cover/cover_1.jpeg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">alchemist_1</div></div></a></div><div class="next-post pull-right"><a href="/2024/10/28/vmf-network/" title="python 组第一次授课前夕的网络问题解决"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/vmf-network/cover.png" onerror="onerror=null;src='/images/cover/cover_1.jpeg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python 组第一次授课前夕的网络问题解决</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/09/PPT/" title="PPT学习笔记"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/PPT/zack.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-10-10</div><div class="title">PPT学习笔记</div></div></a></div><div><a href="/2024/08/12/conda/" title="python 环境管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_11.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-11-08</div><div class="title">python 环境管理</div></div></a></div><div><a href="/2024/11/11/alchemist-1/" title="alchemist_1"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/alchemist_1/cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-11-11</div><div class="title">alchemist_1</div></div></a></div><div><a href="/2024/08/10/git/" title="git"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/git_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-11-08</div><div class="title">git</div></div></a></div><div><a href="/2024/10/28/matplotlib/" title="关于 matplotlib 的一点小事"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/matplotlib/playlist_2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-11-08</div><div class="title">关于 matplotlib 的一点小事</div></div></a></div><div><a href="/2024/07/18/network/" title="魔法原理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/./images/cover/cover_3.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-11-08</div><div class="title">魔法原理</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.png" onerror="this.onerror=null;this.src='/images/cover/cover_1.jpeg'" alt="avatar"/></div><div class="author-info__name">王俊琦</div><div class="author-info__description">每个人都只有一个使命，那就是寻找自我，无论最终成为诗人还是疯子、先知还是罪犯。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kingpoem"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kingpoem" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本网站采取滚动更新方式（小而频繁的更新），致力于让每篇文章都能反复回味。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-C-%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">关于 C++ 的一些知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5-%E9%93%BE%E6%8E%A5%E6%80%A7%EF%BC%88Linkage%EF%BC%89-%E6%8C%87%E7%9A%84%E6%98%AF%E7%AC%A6%E5%8F%B7%EF%BC%88%E5%A6%82%E5%8F%98%E9%87%8F%E5%92%8C%E5%87%BD%E6%95%B0%EF%BC%89%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%BF%BB%E8%AF%91%E5%8D%95%E5%85%83%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%E3%80%82C-C-%E4%B8%AD%E6%9C%89%E4%B8%89%E7%A7%8D%E9%93%BE%E6%8E%A5%E6%80%A7%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">链接 链接性（Linkage） 指的是符号（如变量和函数）在不同翻译单元之间的可见性。C&#x2F;C++中有三种链接性：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GDB-%E8%B0%83%E8%AF%95"><span class="toc-number">1.2.</span> <span class="toc-text">GDB 调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FFMpeg"><span class="toc-number">2.</span> <span class="toc-text">FFMpeg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA%E5%8F%82%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text">1. 输入和输出参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.2.</span> <span class="toc-text">2. 格式转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81%E5%8F%82%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">3. 视频编码参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A0%81%E5%8F%82%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">4. 音频编码参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%88%AA%E5%8F%96%E5%92%8C%E8%A3%81%E5%89%AA"><span class="toc-number">2.5.</span> <span class="toc-text">5. 截取和裁剪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%BC%A9%E6%94%BE%E4%B8%8E%E6%97%8B%E8%BD%AC"><span class="toc-number">2.6.</span> <span class="toc-text">6. 缩放与旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-number">2.7.</span> <span class="toc-text">7. 其他常用参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.8.</span> <span class="toc-text">8. 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.9.</span> <span class="toc-text">设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-%E8%BF%9B%E9%98%B6"><span class="toc-number">3.</span> <span class="toc-text">Linux 进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.1.</span> <span class="toc-text">创建一个自己的服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90"><span class="toc-number">3.2.</span> <span class="toc-text">用户和权限</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg ./images/cover/cover_2.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2024 By 王俊琦</div><div class="footer_custom_text">我渴望有人至死都暴烈地爱我，明白爱和死一样伟大，并永远站在我身边。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 't6qz5lUN2i19KNsgW39p76u8-gzGzoHsz',
+      appKey: 'HlT3SpV7IKr8AoJnK1anKj9a',
+      avatar: 'monsterid',
+      serverURLs: 'https://t6qz5lun.lc-cn-n1-shared.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/calendar.js"></script><script src="/js/language.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
