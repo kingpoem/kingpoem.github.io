@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+    <link rel="icon" href="/assets/avatar.png">
+  
+  
+  <title>Gentoo 安装记录 | Kingpoem&#39;s blog</title>
+  <link rel="canonical" href="https://kingpoem.github.io/posts/gentoo/">
+  <meta name="author" content="kingpoem" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="关于 Gentoo Linux 的安装 &amp;&amp; 选择正确的安装媒介 为避免双系统读取 RTC 时间因为时区不一致导致无法加载 Gentoo 内核问题，在 Windows 端设置写入到 RTC 的时区为 UTC：sudo reg add &quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformati">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gentoo 安装记录">
+<meta property="og:url" content="https://kingpoem.github.io/posts/gentoo/index.html">
+<meta property="og:site_name" content="Kingpoem&#39;s blog">
+<meta property="og:description" content="关于 Gentoo Linux 的安装 &amp;&amp; 选择正确的安装媒介 为避免双系统读取 RTC 时间因为时区不一致导致无法加载 Gentoo 内核问题，在 Windows 端设置写入到 RTC 的时区为 UTC：sudo reg add &quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformati">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-05-03T14:29:24.000Z">
+<meta property="article:modified_time" content="2025-05-03T14:57:31.631Z">
+<meta property="article:author" content="kingpoem">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="theme">
+<meta property="article:tag" content="kratos-rebirth">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Kingpoem's blog" type="application/atom+xml">
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="all"></link>
+  
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></link>
+  
+  
+    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></link>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner.webp');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner_dark.webp');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+    
+  </style>
+
+  <!-- 额外的追加注入项 -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    <li>
+                                        
+                                            <a href="/">
+                                        
+                                            
+                                                <i class="fa fa-home"></i>
+                                            
+                                            首页
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/archives/">
+                                        
+                                            
+                                                <i class="fa fa-file"></i>
+                                            
+                                            档案馆
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/friends/">
+                                        
+                                            
+                                                <i class="fa fa-users"></i>
+                                            
+                                            友链
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a>
+                                        
+                                            
+                                                <i class="fa fa-link"></i>
+                                            
+                                            链接
+                                        </a>
+                                        
+                                            <ul class="sub-menu">
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">
+                                                            
+                                                                <i class="fa fa-code"></i>
+                                                            
+                                                            代码仓库
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://wiki.krt.moe">
+                                                            
+                                                                <i class="fa fa-book"></i>
+                                                            
+                                                            项目文档
+                                                        </a>
+                                                    </li>
+                                                
+                                            </ul>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Kingpoem&#39;s blog</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Kingpoem&#39;s blog</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kingpoem.github.io/posts/gentoo/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">Gentoo 安装记录</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2025-05-03T14:29:24.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-05-03</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">kingpoem</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~6.17K
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+                <div class="kratos-post-inner-toc toc-div-class" >
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-Gentoo-Linux-%E7%9A%84%E5%AE%89%E8%A3%85-%E9%80%89%E6%8B%A9%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%AE%89%E8%A3%85%E5%AA%92%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">关于 Gentoo Linux 的安装 &amp;&amp; 选择正确的安装媒介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C"><span class="toc-number">2.</span> <span class="toc-text">配置网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E7%A3%81%E7%9B%98"><span class="toc-number">3.</span> <span class="toc-text">准备磁盘</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-number">3.1.</span> <span class="toc-text">磁盘分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.</span> <span class="toc-text">创建文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="toc-number">3.3.</span> <span class="toc-text">挂载分区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Gentoo%E5%9F%BA%E7%A1%80%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.</span> <span class="toc-text">安装Gentoo基础系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%97%B6%E5%8C%BA"><span class="toc-number">4.1.</span> <span class="toc-text">设置时区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%86%85%E6%A0%B8"><span class="toc-number">5.</span> <span class="toc-text">配置内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="toc-number">6.</span> <span class="toc-text">配置系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%B7%A5%E5%85%B7"><span class="toc-number">7.</span> <span class="toc-text">安装系统工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%E7%A8%8B%E5%BA%8F"><span class="toc-number">8.</span> <span class="toc-text">配置引导加载程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%B0%BE%E5%AE%89%E8%A3%85%E5%B7%A5%E4%BD%9C"><span class="toc-number">9.</span> <span class="toc-text">收尾安装工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%85%E9%9A%9C"><span class="toc-number">10.</span> <span class="toc-text">故障</span></a></li></ol>
+                </div>
+            
+            <hr />
+            <div itemprop="articleBody"><h3 id="关于-Gentoo-Linux-的安装-选择正确的安装媒介"><a href="#关于-Gentoo-Linux-的安装-选择正确的安装媒介" class="headerlink" title="关于 Gentoo Linux 的安装 &amp;&amp; 选择正确的安装媒介"></a>关于 Gentoo Linux 的安装 &amp;&amp; 选择正确的安装媒介</h3><ul>
+<li>为避免双系统读取 RTC 时间因为时区不一致导致无法加载 Gentoo 内核问题，在 Windows 端设置写入到 RTC 的时区为 UTC：<code>sudo reg add &quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot; /v RealTimeIsUniversal /d 1 /t REG_DWORD /f</code></li>
+<li>关闭 bit locker 加密和 secure boot</li>
+<li>在选择 gentoo 的 <code>boot in normal mode</code> 安装时，会直接进入 grub rescue 环境，退出后再进入 Windows 则显示”你的PIN不可用，单击以重新设置PIN”</li>
+<li>选择 <code>boot in grub2 mode</code></li>
+<li><code>passwd root</code>如果有公网IP，则设置一个强密码</li>
+<li><code>rc-service sshd start</code> 启动ssh服务</li>
+</ul>
+<h3 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h3><ul>
+<li><p><code>net-setup</code>显示<code>enp12s0</code>（以太网接口）和<code>wlp0s20f3</code>（无线局域网）</p>
+</li>
+<li><p>接口命名规则：</p>
+<ul>
+<li><code>p</code>表示设备连接到主板的第几号PCI总线</li>
+<li><code>s</code>表示设备在第几号插槽</li>
+<li><code>f</code>表示该插槽的功能编号为几</li>
+</ul>
+</li>
+<li><p>注意连接协议类型：</p>
+<ul>
+<li><code>open/wep</code>表示开放或者等效有线保密（由于安全性低，现已废弃）</li>
+<li>推荐使用<code>wpa-psk/wpa2-psk</code></li>
+</ul>
+</li>
+<li><p><code>ip link set wlp0s20f3 up</code>显示<code>RFNETLINK answers: Operation not possible due to RF-kill</code> 需要<code>rfkill unblock wifi</code></p>
+</li>
+<li><p>默认dpcp服务没有启动，需要<code>echo &#39;config_eth-=(&quot;dhcp&quot;)&#39; &gt;&gt; /etc/conf.d/net</code>，修改后，重启网络服务<code>/etc/init.d/network restart</code></p>
+</li>
+<li><p><code>ip addr</code>查看本机ip地址，我的是连接无线的，则是wlp0s20f3项inet（表示IPV4协议）后 <code>192.168.43.57/24</code>去掉<code>/24</code>（表示网络部分占用前24位，子网掩码为255.255.255.0）</p>
+</li>
+<li><p>在另一台处于同一个局域网（热点）的电脑远程连接<code>ssh root@192.168.43.57</code>后出现提示输入yes，再输入刚才设置的root密码</p>
+</li>
+</ul>
+<blockquote>
+<p>如果你在接下来的安装中，不小心断开了连接，重新连接继续之前的操作即可 ，注意服务器的ip地址可能会发生变化<br>如果你的 ssh 卡住，可以ps aux | grep ssh 查找进程 PID 并使用 kill -9 PID 杀掉这个 ssh 进程，再重新连接</p>
+</blockquote>
+<h3 id="准备磁盘"><a href="#准备磁盘" class="headerlink" title="准备磁盘"></a>准备磁盘</h3><h4 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h4><ul>
+<li><code>lsblk -f</code>显示有sda nvme0n1 nvme1n1分别对应U盘，加装的固态硬盘，原装的固态硬盘</li>
+<li><code>fdisk /dev/nvme0n1</code><ul>
+<li><code>g</code>创建一个新的GPT磁盘分区表GUID: AEE90FFF-915C-471C-BF7D-4CB8CD08E2D</li>
+<li><code>n</code>创建一个新的分区，按2次enter选择默认的分区号，和分区开始位置，结束位置设置为+1G，如果有显示Do you want to remove the signature则输入<code>yes</code>，<code>t</code>更改磁盘类型为efi</li>
+<li>接下来同样操作建立32G的swap分区</li>
+<li>创建<code>/</code>分区，我分配了300G</li>
+<li>创建<code>/home</code>分区，分配剩下所有空间，文件系统和根分区皆为默认的 Linux filesystem</li>
+</ul>
+</li>
+</ul>
+<h4 id="创建文件系统"><a href="#创建文件系统" class="headerlink" title="创建文件系统"></a>创建文件系统</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkfs.fat -F 32 /dev/nvme0n1p1</span><br><span class="line">mkswap /dev/nvme0n1p2</span><br><span class="line">mkfs.ext4 /dev/nvme0n1p3</span><br><span class="line">mkfs.ext4 /dev/nvme0n1p4</span><br></pre></td></tr></table></figure>
+
+<h4 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">swapon /dev/nvme0n1p2</span><br><span class="line"><span class="comment"># 得先有根目录，才能创建下面的目录</span></span><br><span class="line">mount /dev/nvme0n1p3 /mnt/gentoo</span><br><span class="line">mount /dev/nvme0n1p4 /mnt/gentoo/home --<span class="built_in">mkdir</span></span><br><span class="line">mount /dev/nvme0n1p1 /mnt/gentoo/efi --<span class="built_in">mkdir</span></span><br></pre></td></tr></table></figure>
+<p>如果分错了，可以<code>umount /mnt/gentoo/home</code>，中途随时可以使用<code>lsblk -f</code>或者<code>fdisk -l</code>来查看分区状况</p>
+<h3 id="安装Gentoo基础系统"><a href="#安装Gentoo基础系统" class="headerlink" title="安装Gentoo基础系统"></a>安装Gentoo基础系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/gentoo</span><br><span class="line">chronyd -q</span><br><span class="line"><span class="comment"># 同步时间</span></span><br><span class="line">vi /etc/resolv.conf</span><br><span class="line"><span class="comment"># 写入 nameserver 1.1.1.1</span></span><br><span class="line"><span class="comment"># 系统将使用1.1.1.1（Cloudflare提供）作为DNS服务器进行域名解析</span></span><br><span class="line">links https://www.gentoo.org/downloads/mirrors/或者links https://mirrors.ustc.edu.cn/gentoo/</span><br><span class="line"><span class="comment">#选择releases-&gt;amd64-&gt;autobuilds-&gt;current-stage3-amd64-desktop-systemd/ 下载.tar.xz文件</span></span><br><span class="line">tar xpvf stage3-*.tar.xz --xattrs-include=<span class="string">&#x27;*.*&#x27;</span> --numeric-owner</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>vi /mnt/gentoo/etc/portage/make.conf中COMMON_FLAGS改为-march=native -O2 -pipe</code><br>增加配置如下：</li>
+</ul>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MAKEOPTS=&quot;-j12&quot;</span><br><span class="line">GENTOO_MIRRORS=&quot;https://mirrors.ustc.edu.cn/gentoo/&quot;</span><br><span class="line">USE=&quot;-gtk -gnome qt6 qt5 gtk3 gtk2 kde alsa X wayland yulkan fcitx dist-kernel dbus vdpau nvenc&quot;</span><br><span class="line">VIDEO_CARDS=&quot;nvidia&quot;</span><br><span class="line">ACCEPT_LICENSE=&quot;@FREE @BINARY-REDISTRIBUTABLE @EULA&quot;</span><br><span class="line">ACCEPT_LICENSE=&quot;en en_US zh zh_CN&quot;</span><br><span class="line">GRUB_PLATFORMS=&quot;efi-64&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上文配置解读：<br>指定12线程并行编译，1job对应内存2G<br>指定 Gentoo 软件包的镜像源<br>USE 标志用于控制软件包的编译选项，-gtk 意为禁用 GTK 支持，vulkan 为图形 API 支持，dist-kernel 为启用分布式内核（Gentoo 提供的预编译内核），dbus 用于进程间通信<br>指定系统使用显卡驱动VIDEO_CARDS<br>指定系统可以接受的软件许可协议<br>设置接受的软件本地化语言<br>指定 GRUB 引导程序的平台目标</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> --dereference /etc/resolv.conf /mnt/gentoo/etc/</span><br><span class="line"><span class="comment"># 将/etc/resolv.conf文件复制到 Gentoo 的根文件系统中，确保在 chroot环境可以解析域名</span></span><br><span class="line">arch-chroot /mnt/gentoo</span><br><span class="line"><span class="comment"># 进入到 Gentoo 的 chroot 环境，为后续配置提供虚拟根目录</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"><span class="comment"># 加载 Gentoo 环境的用户配置文件</span></span><br><span class="line"><span class="built_in">export</span> PS1=<span class="string">&quot;(chroot) <span class="variable">$&#123;PS1&#125;</span>&quot;</span></span><br><span class="line"><span class="comment"># 设置提示符以指示当前处于 chroot 环境中</span></span><br><span class="line">emerge-webrsync</span><br><span class="line"><span class="comment"># 从网站安装 Gentoo ebuild 数据库快照</span></span><br><span class="line">emerge news list</span><br><span class="line"><span class="comment"># 检查是否有新的新闻条目</span></span><br><span class="line">emerge profile list</span><br><span class="line"><span class="comment"># 列出可用的 Gentoo 配置文件</span></span><br><span class="line">emerge profile <span class="built_in">set</span> 27</span><br><span class="line">emerge --ask --oneshot app-portage/cpuid2cpuflags</span><br><span class="line"><span class="comment"># 安装cpuid2cpuflags工具</span></span><br><span class="line">cpuid2cpuflags</span><br><span class="line"><span class="comment"># 输出当前 CPU 支持的指令集</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;*/* <span class="subst">$(cpuid2cpuflags)</span>&quot;</span> &gt; /etc/portage/package.use/00cpu-flags</span><br><span class="line"><span class="comment"># 将 CPU 指令集标志写入 Portage 配置文件，以便为系统的所有软件包启用这些优化</span></span><br><span class="line">emerge --ask --verbose --update --deep --newuse -e @world</span><br><span class="line"><span class="comment"># 重新编译系统中的所有软件包，确保启用了新设置的 USE 标志，同时处理深层依赖项和新增功能，如果在此时你不小心断开了网络连接（比如我第一次安装时连的手机热点，然后中途带着手机出门了），那它中途断开</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h4><ul>
+<li>查看可用时区：<code>ls /usr/share/zoneinfo/...</code><br>OpenRC：</li>
+<li><code>echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone</code></li>
+<li><code>emerge --config sys-libs/timezone-data</code><br>systemd：</li>
+<li><code>ln -sf ../usr/share/zoneinfo/Europe/Brussels /etc/localtime</code>之后当 systemd 运行时，时区和相关设置可以使用 timedatectl 命令设置</li>
+<li><code>emerge vim</code> 我不希望使用nano</li>
+<li><code>vim /etc/locale.gen</code> 生成区域设置<br>添加如下：</li>
+</ul>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">en_US.UTF-8 UTF-8 # 去掉注释即可</span><br><span class="line">zh_CN.UTF-8 UTF-8</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>locale-gen</code> 根据 <code>/etc/locale.gen</code> 文件中的设置生成所需的语言环境</li>
+<li><code>locale -a</code> 可以验证当前所选择的 locale 可用</li>
+<li><code>eselect locale list</code> 显示可用目标</li>
+<li><code>eselect locale set 5</code> 选择 zh_CN.utf8</li>
+<li><code>env-update &amp;&amp; source /etc/profile &amp;&amp; export PS1=&quot;(chroot) $&#123;PS1&#125;&quot;</code> 重新加载环境</li>
+<li><code>nano</code> 检测目前语言设置情况</li>
+</ul>
+<h3 id="配置内核"><a href="#配置内核" class="headerlink" title="配置内核"></a>配置内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/portage/package.use/installkernel</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入：sys-kernel/installkernel dracut grub</span></span><br><span class="line"></span><br><span class="line">emerge --ask sys-kernel/gentoo-kernel</span><br><span class="line"><span class="comment"># 编译内核</span></span><br><span class="line">emerge --ask sys-kernel/linux-firmware</span><br><span class="line"><span class="comment"># 安装固件</span></span><br><span class="line">emerge --ask sys-firmware/sof-firmware</span><br><span class="line">emerge -a sys-firmware/intel-microcode</span><br><span class="line"><span class="comment"># 如果你使用 Intel 的 CPU 的话</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置系统"><a href="#配置系统" class="headerlink" title="配置系统"></a>配置系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">emerge fstab</span><br><span class="line">genfstab -U / &gt;&gt; /etc/fstab</span><br><span class="line"><span class="built_in">echo</span> hostname &gt; /etc/hostname</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装系统工具"><a href="#安装系统工具" class="headerlink" title="安装系统工具"></a>安装系统工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask app-admin/sysklogd 安装系统日志</span><br><span class="line">rc-update add sysklogd default</span><br><span class="line">emerge --ask sys-process/cronie 安装守护进程</span><br><span class="line">rc-update add cronie default</span><br><span class="line">emerge --ask sys-apps/mlocate 安装文件索引</span><br><span class="line">emerge --ask app-shells/bash-completion</span><br><span class="line">emerge --ask net-misc/chrony 时间同步</span><br><span class="line">rc-update add chronyd default</span><br><span class="line">emerge -a sys-fs/e2fsprogs sys-fs/dosfstools 安装文件系统工具，对应 ext4 和 VFAT</span><br><span class="line">emerge --ask sys-block/io-scheduler-udev-rules</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置引导加载程序"><a href="#配置引导加载程序" class="headerlink" title="配置引导加载程序"></a>配置引导加载程序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grub-install --target=x86_64-efi --efi-directory=/efi</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+
+<h3 id="收尾安装工作"><a href="#收尾安装工作" class="headerlink" title="收尾安装工作"></a>收尾安装工作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G <span class="built_in">users</span>,wheel,audio,video -s /bin/bash name</span><br><span class="line">passwd name</span><br><span class="line">passwd root</span><br><span class="line">emerge sudo</span><br><span class="line"><span class="built_in">export</span> EDITOR=vim 临时设置编辑器为 vim</span><br><span class="line">visudo</span><br><span class="line">在 etc/sudoers.tmp 文件中查找 root ALL=(ALL:ALL) ALL 并在其下添加 name ALL=(ALL:ALL) ALL 其中，name为你自己刚设置的用户名</span><br><span class="line"><span class="built_in">rm</span> /stage3-*.tar.* 删除安装后的残留文件</span><br><span class="line">emerge openssh</span><br><span class="line">rc-update add sshd default</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<h3 id="故障"><a href="#故障" class="headerlink" title="故障"></a>故障</h3><ol>
+<li>问题描述：前期下载用了 OpenRC，Gentoo 启动卡死在了 <code>Setting system clock using the hardware clock [UTC] ...</code> 按任何键都无反应。</li>
+<li>问题排查：</li>
+</ol>
+<ul>
+<li>进入 BIOS 界面，查看系统时间为北京时间</li>
+<li>进入修复环境 <code>mount /dev/nvme1n1p3 /mnt arch-chroot /mnt</code></li>
+<li><code>hwclock --verbose</code> 查看硬件时钟为 UTC 时间，但数值却为 CST 时间</li>
+<li>回顾设置时区部分，执行 <code>emerge --config sys-libs/timezone-data</code> 时，显示 <code>Assuming your /etc/localtime symlink is what you want; skipping update</code></li>
+</ul>
+<ol start="3">
+<li>问题更大：<br>硬件时间应该是一台电脑只有一个，而系统时间应该可以有多个</li>
+</ol>
+<ul>
+<li>在 Arch 中 <code>timedatectl set-ntp true</code> 启动 <code>System clock synchronized</code> 不对啊，这是在内存中进行的</li>
+<li>进入修复环境 <code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code></li>
+<li><code>hwclock --systohc</code></li>
+<li><code>hwclock --verbose</code> 检查硬件时钟正常</li>
+<li><code>reboot</code> 显示问题更大<br>换 <code>systemd</code> 吧</li>
+</ul>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <span itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</span>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    
+                </div>
+                <div class="pull-date">
+                    <time datetime="2025-05-03T14:57:31.631Z" itemprop="dateModified">最后编辑：2025-05-03</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" Windows 更新的链式反应" href="/posts/new-blog-md/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" 爬B工程及 Python 导包机制" href="/posts/bvget/">下一篇 <i class="fa fa-angle-right"></i></a>
+            </div>
+            
+        </nav>
+    
+    
+        <div class="comment-post">
+            
+        </div>
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/assets/avatar.png" alt="kingpoem" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">nya~</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                3
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                    <aside id="krw-toc" class="widget widget-kratos-toc clearfix toc-div-class" >
+    <div class="photo-background"></div>
+    <h4 class="widget-title no-after">
+        <i class="fa fa-compass"></i>
+        文章目录
+        <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
+    </h4>
+    <div class="textwidget">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-Gentoo-Linux-%E7%9A%84%E5%AE%89%E8%A3%85-%E9%80%89%E6%8B%A9%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%AE%89%E8%A3%85%E5%AA%92%E4%BB%8B"><span class="toc-text">关于 Gentoo Linux 的安装 &amp;&amp; 选择正确的安装媒介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C"><span class="toc-text">配置网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E7%A3%81%E7%9B%98"><span class="toc-text">准备磁盘</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-text">磁盘分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">创建文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="toc-text">挂载分区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Gentoo%E5%9F%BA%E7%A1%80%E7%B3%BB%E7%BB%9F"><span class="toc-text">安装Gentoo基础系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%97%B6%E5%8C%BA"><span class="toc-text">设置时区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%86%85%E6%A0%B8"><span class="toc-text">配置内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="toc-text">配置系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%B7%A5%E5%85%B7"><span class="toc-text">安装系统工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%E7%A8%8B%E5%BA%8F"><span class="toc-text">配置引导加载程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%B0%BE%E5%AE%89%E8%A3%85%E5%B7%A5%E4%BD%9C"><span class="toc-text">收尾安装工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%85%E9%9A%9C"><span class="toc-text">故障</span></a></li></ol>
+    </div>
+</aside>
+                
+                
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/posts/bvget/"><i class="fa fa-book"></i> 爬B工程及 Python 导包机制</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/gentoo/"><i class="fa fa-book"></i> Gentoo 安装记录</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/new-blog-md/"><i class="fa fa-book"></i> Windows 更新的链式反应</a>
+            
+          
+        
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                            <li>
+                                <a href="https://github.com/kingpoem" target="_blank" rel="nofollow">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/atom.xml" target="_blank" rel="nofollow">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2025 Kingpoem's blog 版权所有.</li>
+                            <li>本站已在风雨中飘摇<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://github.com/kingpoem" target="_blank">kingpoem</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                            <div>
+                                
+                                    <li>由 <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a> 强力驱动</li>
+                                
+                                    <li>在 <a href="https://github.io" target="_blank">Github Pages</a> 暖心托管</li>
+                                
+                            </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<!-- 额外的追加注入项 -->
+
+
+    </body>
+</html>

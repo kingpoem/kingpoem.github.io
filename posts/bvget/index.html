@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+    <link rel="icon" href="/assets/avatar.png">
+  
+  
+  <title>爬B工程及 Python 导包机制 | Kingpoem&#39;s blog</title>
+  <link rel="canonical" href="https://kingpoem.github.io/posts/bvget/">
+  <meta name="author" content="kingpoem" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="前言：本文使用 uv 进行 Python 环境管理，简述爬取B站视频的核心要点，打包爬取B站视频的命令行工具，并上传至 PyPI，然后自己安装使用针对 Python 的导包机制由浅入深进行讲解，给出七个针对性问题及解答，在文末提出推荐解决方案  Python 环境管理的几种方案Python 环境管理有多种方案，在数据科学、机器学习方面，我们一般都会使用 conda。但是由于它的体积过于庞大，有时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬B工程及 Python 导包机制">
+<meta property="og:url" content="https://kingpoem.github.io/posts/bvget/index.html">
+<meta property="og:site_name" content="Kingpoem&#39;s blog">
+<meta property="og:description" content="前言：本文使用 uv 进行 Python 环境管理，简述爬取B站视频的核心要点，打包爬取B站视频的命令行工具，并上传至 PyPI，然后自己安装使用针对 Python 的导包机制由浅入深进行讲解，给出七个针对性问题及解答，在文末提出推荐解决方案  Python 环境管理的几种方案Python 环境管理有多种方案，在数据科学、机器学习方面，我们一般都会使用 conda。但是由于它的体积过于庞大，有时">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-05-03T14:57:47.000Z">
+<meta property="article:modified_time" content="2025-05-03T15:14:05.028Z">
+<meta property="article:author" content="kingpoem">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="theme">
+<meta property="article:tag" content="kratos-rebirth">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Kingpoem's blog" type="application/atom+xml">
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="all"></link>
+  
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></link>
+  
+  
+    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></link>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner.webp');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner_dark.webp');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+    
+  </style>
+
+  <!-- 额外的追加注入项 -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    <li>
+                                        
+                                            <a href="/">
+                                        
+                                            
+                                                <i class="fa fa-home"></i>
+                                            
+                                            首页
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/archives/">
+                                        
+                                            
+                                                <i class="fa fa-file"></i>
+                                            
+                                            档案馆
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/friends/">
+                                        
+                                            
+                                                <i class="fa fa-users"></i>
+                                            
+                                            友链
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a>
+                                        
+                                            
+                                                <i class="fa fa-link"></i>
+                                            
+                                            链接
+                                        </a>
+                                        
+                                            <ul class="sub-menu">
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">
+                                                            
+                                                                <i class="fa fa-code"></i>
+                                                            
+                                                            代码仓库
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://wiki.krt.moe">
+                                                            
+                                                                <i class="fa fa-book"></i>
+                                                            
+                                                            项目文档
+                                                        </a>
+                                                    </li>
+                                                
+                                            </ul>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Kingpoem&#39;s blog</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Kingpoem&#39;s blog</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kingpoem.github.io/posts/bvget/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">爬B工程及 Python 导包机制</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2025-05-03T14:57:47.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-05-03</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">kingpoem</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~10.18K
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+                <div class="kratos-post-inner-toc toc-div-class" >
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">Python 环境管理的几种方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E5%8F%96-B-%E5%B7%A5%E7%A8%8B%E8%A7%86%E9%A2%91"><span class="toc-number">2.</span> <span class="toc-text">爬取 B 工程视频</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E7%94%A8-lxml-%E8%80%8C%E4%B8%8D%E6%98%AF-BeautifulSoup-%E7%9A%84%E7%90%86%E7%94%B1"><span class="toc-number">2.1.</span> <span class="toc-text">选用 lxml 而不是 BeautifulSoup 的理由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E8%BF%B0-XPath"><span class="toc-number">2.2.</span> <span class="toc-text">简述 XPath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lxml-html-%E5%92%8C-lxml-etree-HTML-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.</span> <span class="toc-text">lxml.html 和 lxml.etree.HTML 的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E2%80%93%E5%8D%95%E4%B8%AA%E8%A7%86%E9%A2%91%E4%B8%AD%E7%9A%84-playinfo-%E4%BF%A1%E6%81%AF"><span class="toc-number">2.4.</span> <span class="toc-text">数据分析–单个视频中的 playinfo 信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86-bvget-%E5%91%BD%E4%BB%A4%E5%86%99%E5%85%A5%E7%B3%BB%E7%BB%9F%E8%B7%AF%E5%BE%84"><span class="toc-number">3.</span> <span class="toc-text">将 bvget 命令写入系统路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E8%87%B3-PyPI"><span class="toc-number">4.</span> <span class="toc-text">上传至 PyPI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-%E5%AF%BC%E5%8C%85%E6%9C%BA%E5%88%B6"><span class="toc-number">5.</span> <span class="toc-text">Python 导包机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">5.1.</span> <span class="toc-text">相关概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%9C%BA%E6%99%AF"><span class="toc-number">5.2.</span> <span class="toc-text">问题场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9Apython-filename-py-%E5%92%8C-python-m-modulename-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.3.</span> <span class="toc-text">问题一：python filename.py 和 python -m modulename 的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%9Aif-name-%E2%80%98main%E2%80%98-%E8%AF%AD%E5%8F%A5%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">5.4.</span> <span class="toc-text">问题二：if name &#x3D;&#x3D; ‘main‘: 语句的作用是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%89%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-B-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-A-py"><span class="toc-number">5.5.</span> <span class="toc-text">问题三：如何在 B.py 中导入 A.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%9B%9B%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-C-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-A-py"><span class="toc-number">5.6.</span> <span class="toc-text">问题四：如何在 C.py 中导入 A.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BA%94%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-D-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-C-py"><span class="toc-number">5.7.</span> <span class="toc-text">问题五：如何在 D.py 中导入 C.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%85%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-E-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-D-py"><span class="toc-number">5.8.</span> <span class="toc-text">问题六：如何在 E.py 中导入 D.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%83%EF%BC%9Ainit-py-%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">5.9.</span> <span class="toc-text">问题七：init.py 文件的作用是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">5.10.</span> <span class="toc-text">推荐使用方式</span></a></li></ol></li></ol>
+                </div>
+            
+            <hr />
+            <div itemprop="articleBody"><blockquote>
+<p>前言：本文使用 uv 进行 Python 环境管理，简述爬取B站视频的核心要点，打包爬取B站视频的命令行工具，并上传至 PyPI，然后自己安装使用<br>针对 Python 的导包机制由浅入深进行讲解，给出七个针对性问题及解答，在文末提出推荐解决方案</p>
+</blockquote>
+<h3 id="Python-环境管理的几种方案"><a href="#Python-环境管理的几种方案" class="headerlink" title="Python 环境管理的几种方案"></a>Python 环境管理的几种方案</h3><p>Python 环境管理有多种方案，在数据科学、机器学习方面，我们一般都会使用 conda。但是由于它的体积过于庞大，有时我们只是想要一个可以跑小项目的 Python 环境，venv 也不失为一个不错的选择。poetry 和 Hatch 也可以用来管理 Python 环境。现在还有用 Rust 编写的 uv。</p>
+<p>基于 AI 生成的比较几种 Python 环境管理工具的优缺点整理（2025-1-31）：</p>
+<ol>
+<li>pip：生态齐全。但解析依赖不稳定，无 lock 文件。</li>
+<li>poetry：速度较慢，解析基于 toml 文件，支持 poetry.lock 文件，内置 venv 管理，支持发布到 poetry publish，更适合项目管理和发布 Python 包。</li>
+<li>uv：速度最快，基于 Rust，支持 pyproject.toml 和 requirements.txt 文件，不支持 pip install 以外的高级功能，可以创建虚拟环境，但不支持发布 PyPI（可以借助其他工具实现），没有 lock 文件。如果只想快速安装和管理 Python 依赖，不需要复杂功能，可以在小项目里使用。</li>
+<li>Hatch：支持依赖管理、虚拟环境、多环境管理、版本控制和PyPI 发布。它的设计目标是比 Poetry 更快、更灵活，适用于复杂项目、自动化任务和 CI&#x2F;CD 环境。</li>
+</ol>
+<h3 id="爬取-B-工程视频"><a href="#爬取-B-工程视频" class="headerlink" title="爬取 B 工程视频"></a>爬取 B 工程视频</h3><h4 id="选用-lxml-而不是-BeautifulSoup-的理由"><a href="#选用-lxml-而不是-BeautifulSoup-的理由" class="headerlink" title="选用 lxml 而不是 BeautifulSoup 的理由"></a>选用 lxml 而不是 BeautifulSoup 的理由</h4><ul>
+<li>lxml 支持 XPath 语法, 而 BeautifulSoup 不支持</li>
+<li>lxml 要求所爬取的数据结构规范，所有标签闭合，而 BeautifulSoup 则不一定</li>
+<li>lxml 的解析方式为直接基于 ElementTree 解析，而 BeautifulSoup 则是以 Python 对象方式操作</li>
+<li>lxml.html.fromstring() 和 BeautifulSoup 同样支持 cssselect，不需要另外安装 cssselect 库</li>
+</ul>
+<h4 id="简述-XPath"><a href="#简述-XPath" class="headerlink" title="简述 XPath"></a>简述 XPath</h4><ul>
+<li>XML 和 HTML 都是一种标记语言而不是编程语言</li>
+<li>XML 用于存储、传输数据，而 HTML 专门用于展示网页内容，HTML 文档也叫做网页，HTML 相当于基于 XML 的规范衍生出的一套标记语言，XML 更加通用</li>
+<li>XML 语法严格（要求标签必须闭合，区分大小写），而 HTML 语法松散（标签可以不闭合，不区分大小写）</li>
+<li>XPath 是一门在 XML 文档中定位元素的语言</li>
+</ul>
+<p>给出一些常用的 XPath 表达式：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//book    选择文档中所有 &lt;book&gt; 元素</span><br><span class="line">/bookstore/book    选择根节点 &lt;bookstore&gt; 下的所有 &lt;book&gt; 元素</span><br><span class="line">/bookstore/book[@category]    选择 &lt;bookstore&gt; 下所有带有 category 属性的 &lt;book&gt; 元素</span><br><span class="line">/bookstore/book[@category=&#x27;cooking&#x27;]    选择 &lt;bookstore&gt; 下 category 属性值为 cooking 的 &lt;book&gt; 元素</span><br><span class="line">//* 选择文档中的所有元素</span><br><span class="line">/bookstore/book/title    选择 &lt;bookstore&gt; 下每个 &lt;book&gt; 元素的 &lt;title&gt; 子元素</span><br><span class="line">string_length(/bookstore/book/title)    返回 &lt;title&gt; 元素中字符串长度</span><br><span class="line">sum(/bookstore/book/price)    返回 &lt;price&gt; 元素的和</span><br><span class="line">contains(/bookstore/book/title, &#x27;Python&#x27;)    检查 &lt;title&gt; 元素是否包含字符串 &#x27;Python&#x27;</span><br><span class="line">//title[@lang=&#x27;en&#x27;]    选择所有 lang 属性值为 &#x27;en&#x27; 的 &lt;title&gt; 元素</span><br><span class="line">/bookstore/book[price&gt;30.00]    选择所有 price 元素的值大于 30.00 的 &lt;book&gt; 元素</span><br><span class="line">/bookstore/book/title/text()    返回所有 &lt;title&gt; 元素的文本内容</span><br></pre></td></tr></table></figure>
+
+<h4 id="lxml-html-和-lxml-etree-HTML-的区别"><a href="#lxml-html-和-lxml-etree-HTML-的区别" class="headerlink" title="lxml.html 和 lxml.etree.HTML 的区别"></a>lxml.html 和 lxml.etree.HTML 的区别</h4><p>两种方法都可以用于解析 HTML，但是 lxml.html 具有自动修正 HTML 结构的特点，返回 lxml.html.HtmlElement 对象，比 ElementTree 提供更多 HTML 相关功能，因此更加适用于网页爬取。</p>
+<h4 id="数据分析–单个视频中的-playinfo-信息"><a href="#数据分析–单个视频中的-playinfo-信息" class="headerlink" title="数据分析–单个视频中的 playinfo 信息"></a>数据分析–单个视频中的 playinfo 信息</h4><p>B站大多单个视频在 开发者工具-&gt;Network-&gt;刷新后的第一条信息（对视频播放信息的请求）-&gt;Response 中 html-&gt;head-&gt;第四个script中保存了 window.<strong>playinfo</strong> 信息，其中包含了视频播放所需的详细信息。<br>在 data-&gt;dash-&gt;video&#x2F;audio 中分别保存了视频和音频的储存地址，包括 baseUrl,base_url,backupUrl(2个),backup_url(2个)</p>
+<h3 id="将-bvget-命令写入系统路径"><a href="#将-bvget-命令写入系统路径" class="headerlink" title="将 bvget 命令写入系统路径"></a>将 <code>bvget</code> 命令写入系统路径</h3><p>可以手动添加到系统路径中：<code>sudo mv bvget.py /usr/local/bin/bvget</code></p>
+<p>也可以使用 <code>setup.py</code> 进行安装</p>
+<p>但是从 PEP 518 开始就有了 <code>pyproject.toml</code> 文件，提供了一个更加现代化、声明式的项目配置</p>
+<p>下面提供一个使用 uv 构建的简单的示例：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[project]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;bvget&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">description</span> = <span class="string">&quot;A simple command line tool to download Bilibili videos&quot;</span></span><br><span class="line"><span class="attr">authors</span> = [&#123;name = <span class="string">&quot;poem&quot;</span>, email = <span class="string">&quot;poem@example.com&quot;</span>&#125;]</span><br><span class="line"><span class="attr">readme</span> = <span class="string">&quot;README.md&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[build-system]</span></span><br><span class="line"><span class="attr">requires</span> = [<span class="string">&quot;setuptools&quot;</span>]</span><br><span class="line"><span class="attr">build-backend</span> = <span class="string">&quot;setuptools.build_meta&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[project.scripts]</span></span><br><span class="line"><span class="attr">bvget</span> = <span class="string">&quot;bvget:main&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>对以上内容的解读：</p>
+<p>[project] 定义了项目的基本信息，包括名称、版本、描述、作者、readme等<br>[build-system] 定义构建系统<br>[project.scripts] 定义了项目的命令行工具，这里定义了一个名为 bvget 的命令，对应 bvget.py 中的 main() 函数</p>
+<p>在项目根目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uv pip compile --all</span><br><span class="line">uv build</span><br></pre></td></tr></table></figure>
+
+<p>构建完成后，dist 目录下会生成一个 .whl 文件，.whl 文件是可安装的 Python 包，可以直接使用 pip 安装。.tar.gz 文件是源码包，可以用于源码安装。</p>
+<h3 id="上传至-PyPI"><a href="#上传至-PyPI" class="headerlink" title="上传至 PyPI"></a>上传至 PyPI</h3><p>uv 不支持直接发布 Python 包到 PyPI，但可以借助 twine 工具来实现。<br>首先需要注册一个 PyPI 账户，然后在项目根目录下执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uv add twine</span><br><span class="line">uv publish --username pypi_username --password pypi_password</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">twine upload dist/*</span><br></pre></td></tr></table></figure>
+<p>之后你就可以在任何 Python 环境中安装 bvget 了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install bvget</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python-导包机制"><a href="#Python-导包机制" class="headerlink" title="Python 导包机制"></a>Python 导包机制</h3><blockquote>
+<p>提醒：环境为 Arch Linux + VSCode<br>Pycharm 有自己的想法（听说是会帮你自动添加路径，如果项目上线就会报各种导入失败的错误）且我没怎么用过，故本文不做讨论<br>为方便后续查看 sys.path 内容，建议添加 from rich import print 来增强可读性<br>所有代码执行的根目录为 project</p>
+</blockquote>
+<h4 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h4><ul>
+<li><code>package</code>：包，一个包含模块的目录，包含 <code>__init__.py</code> 文件，可以包含子目录</li>
+<li><code>module</code>：模块，一个 <code>.py</code> 文件，包含 Python 代码</li>
+<li><code>__name__</code>：<strong>当前模块名称</strong>（此项与后面解释息息相关）</li>
+<li><code>__package__</code>：<strong>当前模块所在的包名称</strong>（此项与后面解释息息相关）</li>
+<li><code>sys.path</code>：模块搜索路径列表，也即绝对导入搜索路径</li>
+<li><code>__init__.py</code>：模块的初始化文件，在导入包时，会自动执行该文件</li>
+<li><code>__path__</code>：当前模块的搜索路径</li>
+<li><code>__file__</code>：当前模块的文件路径</li>
+<li><code>__loader__</code>：模块的加载器，指向加载该模块的加载器对象</li>
+<li><code>__spec__</code>：存储模块的导入信息（PEP 451）</li>
+<li><code>PEP</code>：Python enhancement proposal，Python 增强建议，是 Python 社区提出的一些改进建议</li>
+<li><code>top-level package</code>：所执行的 package 中最高的一层</li>
+</ul>
+<h4 id="问题场景"><a href="#问题场景" class="headerlink" title="问题场景"></a>问题场景</h4><p>有如下目录结构：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|-project</span><br><span class="line">|    |-sub1</span><br><span class="line">|    |   |-C.py</span><br><span class="line">|    |-sub2</span><br><span class="line">|    |   |-D.py</span><br><span class="line">|    |   |-E.py</span><br><span class="line">|    |-A.py</span><br><span class="line">|    |-B.py</span><br></pre></td></tr></table></figure>
+
+<p>每个文件中均有一个 <code>_fun()</code> 函数。<br>相对导入基准路径为当前模块所在包。比如 <code>C.py</code> 的基准路径是 <code>sub1</code>，<code>A.py</code> 的基准路径是 <code>project</code>。<br><code>import ..A</code> 这样的隐式相对导入已被 PEP 328 禁止，后文所说的相对导入均指的是显式相对导入。</p>
+<h4 id="问题一：python-filename-py-和-python-m-modulename-的区别"><a href="#问题一：python-filename-py-和-python-m-modulename-的区别" class="headerlink" title="问题一：python filename.py 和 python -m modulename 的区别"></a>问题一：python filename.py 和 python -m modulename 的区别</h4><ul>
+<li>命令1：python sub1&#x2F;C.py</li>
+<li>命令2：python -m sub1.C</li>
+</ul>
+<p>补充说明：</p>
+<ul>
+<li>VSCode 里直接点击小三角运行 Python 文件同命令1原理</li>
+<li>命令2由 PEP 338 规定</li>
+<li>把这个问题放在第一个是为了让读者知道作者是如何运行 Python 文件的，关于命令执行结果的区别，将在问题三中说明</li>
+<li>后文为简化，类似于命令1中的操作均称呼为”命令1”，类似于命令2中的操作均称呼为”命令2”</li>
+</ul>
+<p>在 C.py 中有如下代码：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> rich <span class="keyword">import</span> <span class="built_in">print</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(sys.path)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;C __name__:&quot;</span>, __name__)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;C __package__:&quot;</span>, __package__)</span><br></pre></td></tr></table></figure>
+<p>命令1执行结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python ./sub1/C.py                             -- INSERT --</span><br><span class="line">[</span><br><span class="line">    <span class="string">&#x27;/home/poem/app/vscode/Python/project/sub1&#x27;</span>,</span><br><span class="line">    <span class="comment"># 省略部分</span></span><br><span class="line">]</span><br><span class="line">C __name__: __main__</span><br><span class="line">C __package__: None</span><br></pre></td></tr></table></figure>
+
+<p>命令2执行结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python -m sub1.C                               -- INSERT --</span><br><span class="line">[</span><br><span class="line">    <span class="string">&#x27;/home/poem/app/vscode/Python/project&#x27;</span>,</span><br><span class="line">    <span class="comment"># 省略部分</span></span><br><span class="line">]</span><br><span class="line">C __name__: __main__</span><br><span class="line">C __package__: sub1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一个输出发现我在 VSCode 中项目根目录是 project，而命令1 sys.path 里的路径只有 sub1 目录</li>
+<li>第二个输出表明 C.py 作为顶级脚本被加载，<strong>name</strong> 的值为 <strong>main</strong>，顶级脚本会失去正常名称，而被改为 <strong>main</strong></li>
+<li>第三个输出 <strong>package</strong> 不是当前模块所在的包名称吗？为什么它的值会是 None 呢</li>
+<li>疑惑将在问题三得到解答</li>
+</ul>
+<h4 id="问题二：if-name-‘main‘-语句的作用是什么"><a href="#问题二：if-name-‘main‘-语句的作用是什么" class="headerlink" title="问题二：if name &#x3D;&#x3D; ‘main‘: 语句的作用是什么"></a>问题二：if <strong>name</strong> &#x3D;&#x3D; ‘<strong>main</strong>‘: 语句的作用是什么</h4><p>加载 Python 文件有两种方式：作为顶级脚本（一次只能有一个）或者作为模块。</p>
+<ul>
+<li>作为顶级脚本：直接运行 python filename.py 或者 python -m modulename，会将该文件作为顶级脚本加载</li>
+<li>作为模块：当在其他文件中遇到 import 语句时，它会作为模块加载<br>在 C.py 中有如下代码：</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;C __name__:&quot;</span>, __name__)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;C __package__:&quot;</span>, __package__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">c_fun</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;I am c_fun&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    c_fun()</span><br></pre></td></tr></table></figure>
+
+<p>执行 python .&#x2F;sub1&#x2F;C.py 或者 python -m sub1.C 输出结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python ./sub1/C.py                 -- INSERT --</span><br><span class="line">C __name__: __main__</span><br><span class="line">C __package__: None     <span class="comment"># 后者这里输出 sub1</span></span><br><span class="line">I am c_fun</span><br></pre></td></tr></table></figure>
+
+<p>接着我们保留 C.py 中代码，C.py 中依然有 if <strong>name</strong> &#x3D;&#x3D; “<strong>main</strong>“: 语句，我们在 A.py 中导入 C.py</p>
+<p>在 A.py 中有如下代码：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sub1 <span class="keyword">import</span> C</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a_fun</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;I am a_fun&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    a_fun()</span><br><span class="line">    C.c_fun()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;A __name__:&quot;</span>, __name__)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;A __package__:&quot;</span>, __package__)</span><br></pre></td></tr></table></figure>
+
+<p>执行 python .&#x2F;A.py 或者 python -m A 输出结果在最后一行略有不同：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python ./A.py                      -- INSERT --</span><br><span class="line">C __name__: sub1.C</span><br><span class="line">C __package__: sub1</span><br><span class="line">I am a_fun</span><br><span class="line">I am c_fun</span><br><span class="line">A __name__: __main__</span><br><span class="line">A __package__: <span class="literal">None</span>     <span class="comment"># 如果这里执行的是 `python -m A`，则输出为空</span></span><br></pre></td></tr></table></figure>
+
+<p>从输出中可以看出 C.py 中的 if <strong>name</strong> &#x3D;&#x3D; “<strong>main</strong>“: 语句未被执行，<strong>name</strong> 的值为 sub1.C。</p>
+<p>所以问题二的答案：if <strong>name</strong> &#x3D;&#x3D; ‘<strong>main</strong>‘: 语句的作用是只有当该模块作为顶级脚本时才会执行后面的语句，如果该模块是被 import 进来的，则不会执行。</p>
+<h4 id="问题三：如何在-B-py-中导入-A-py"><a href="#问题三：如何在-B-py-中导入-A-py" class="headerlink" title="问题三：如何在 B.py 中导入 A.py"></a>问题三：如何在 B.py 中导入 A.py</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> A</span><br><span class="line"><span class="comment"># python ./B.py || python -m B</span></span><br><span class="line"><span class="comment"># ImportError: attempted relative import with no known parent package</span></span><br><span class="line"><span class="comment"># . 代表 project 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cd .. &amp;&amp; python -m project.B</span></span><br><span class="line"><span class="comment"># 成功</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> project <span class="keyword">import</span> A</span><br><span class="line"><span class="comment"># ModuleNotFoundError: No module named &#x27;project&#x27;</span></span><br><span class="line"><span class="comment"># 如果 print(sys.path) 会发现 project 目录是第一条</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cd .. &amp;&amp; python -m project.B</span></span><br><span class="line"><span class="comment"># 成功</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> A</span><br><span class="line"><span class="comment"># 成功</span></span><br></pre></td></tr></table></figure>
+
+<p>对上面错误做法原因分析：<br>相对导入使用模块的名称（即 <strong>name</strong>）来确定它在包层次结构中的位置。<br>当你使用相对导入时，如 from .. import A，点表示在 package 层次结构中增加一些级别。<br>如果当前模块名称是 project.sub1.C，则 ..A 表示 project.A。<br>要使 from .. import 正常工作，模块名称必须至少包含 import 语句中的点数。</p>
+<p>但是，如果模块名称是 <strong>main</strong>，它的名称里没有点，就好像该模块是顶级模块一样，不管该模块在文件系统上的实际位置如何，其都没有更往上一层的包，因此不能在里面使用 from . import A 这种相对导入。</p>
+<p>理解了问题三错误做法错误的原因，我们再回看问题一。</p>
+<p>命令1执行结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python ./sub1/C.py                             -- INSERT --</span><br><span class="line">[</span><br><span class="line">    <span class="string">&#x27;/home/poem/app/vscode/Python/project/sub1&#x27;</span>,</span><br><span class="line">    <span class="comment"># 省略部分</span></span><br><span class="line">]</span><br><span class="line">C __name__: __main__</span><br><span class="line">C __package__: None</span><br></pre></td></tr></table></figure>
+
+<p>命令2执行结果：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python -m sub1.C                               -- INSERT --</span><br><span class="line">[</span><br><span class="line">    <span class="string">&#x27;/home/poem/app/vscode/Python/project&#x27;</span>,</span><br><span class="line">    <span class="comment"># 省略部分</span></span><br><span class="line">]</span><br><span class="line">C __name__: __main__</span><br><span class="line">C __package__: sub1</span><br></pre></td></tr></table></figure>
+
+<p>从 Python 2.6 开始，用于包解析目的的模块的名称不仅由其 <strong>name</strong> 属性决定，还由 <strong>package</strong> 属性决定。<br>模块的名称实际上是 <strong>package</strong> + ‘.’ + <strong>name</strong>，如果 <strong>package</strong> 是 None，则只是__name__。<br>根据对问题三错误做法的分析，我们知道，两种命令都会让 C.py 作为顶级脚本被加载，这样的话都无法识别上层包，之所以命令2的 <strong>package</strong> 值为 sub1，是因为命令中有 sub1.C 告诉了 Python 加载 C.py 所在的包 sub1。</p>
+<h4 id="问题四：如何在-C-py-中导入-A-py"><a href="#问题四：如何在-C-py-中导入-A-py" class="headerlink" title="问题四：如何在 C.py 中导入 A.py"></a>问题四：如何在 C.py 中导入 A.py</h4><p>常见于 sub1 目录为一个 test 目录<br>以下问题解决办法均只展示部分</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .. <span class="keyword">import</span> A</span><br><span class="line"><span class="comment"># 如果你在 project 目录下运行 python ./sub1/C.py</span></span><br><span class="line"><span class="comment"># ImportError: attempted relative import with no known parent package</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cd .. &amp;&amp; python -m project.sub1.C</span></span><br><span class="line"><span class="comment"># 成功</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> ...project <span class="keyword">import</span> A</span><br><span class="line"><span class="comment"># ImportError: attempted relative import with no known parent package</span></span><br><span class="line"><span class="comment"># emmmmm 你应该试试 cd ... &amp;&amp; python -m Python.project.sub1.C</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), <span class="string">&#x27;..&#x27;</span>)))</span><br><span class="line"><span class="comment"># 效果等同于 sys.path.append(&#x27;/home/poem/app/vscode/Python/project&#x27;)</span></span><br><span class="line"><span class="comment"># 或者你在运行时添加 PYTHONPATH=$(pwd) python ./sub1/C.py</span></span><br><span class="line"><span class="keyword">import</span> A</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题五：如何在-D-py-中导入-C-py"><a href="#问题五：如何在-D-py-中导入-C-py" class="headerlink" title="问题五：如何在 D.py 中导入 C.py"></a>问题五：如何在 D.py 中导入 C.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ..sub1 <span class="keyword">import</span> C</span><br><span class="line"><span class="comment"># 如果你在 project 目录下运行 python ./sub2/D.py</span></span><br><span class="line"><span class="comment"># ImportError: attempted relative import with no known parent package</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果你在 project 目录下运行 python -m sub2.D</span></span><br><span class="line"><span class="comment"># ModuleNotFoundError: No module named &#x27;project&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cd .. &amp;&amp; python -m project.sub2.D</span></span><br><span class="line"><span class="comment"># 成功</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> project.sub1 <span class="keyword">import</span> C</span><br><span class="line"><span class="comment"># cd .. &amp;&amp; python -m project.sub2.D</span></span><br><span class="line"><span class="comment"># 成功</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sub1 <span class="keyword">import</span> C</span><br><span class="line"><span class="comment"># python -m sub2.D</span></span><br><span class="line"><span class="comment"># 成功</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="问题六：如何在-E-py-中导入-D-py"><a href="#问题六：如何在-E-py-中导入-D-py" class="headerlink" title="问题六：如何在 E.py 中导入 D.py"></a>问题六：如何在 E.py 中导入 D.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> D</span><br><span class="line"><span class="comment"># python ./sub2/E.py</span></span><br><span class="line"><span class="comment"># ImportError: attempted relative import with no known parent package</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># python -m sub2.E</span></span><br><span class="line"><span class="comment"># 成功</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sub2 <span class="keyword">import</span> D</span><br><span class="line"><span class="comment"># python ./sub2/E.py</span></span><br><span class="line"><span class="comment"># ModuleNotFoundError: No module named &#x27;sub2&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># python -m sub2.E</span></span><br><span class="line"><span class="comment"># 成功</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> D</span><br><span class="line"><span class="comment"># 成功</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="问题七：init-py-文件的作用是什么"><a href="#问题七：init-py-文件的作用是什么" class="headerlink" title="问题七：init.py 文件的作用是什么"></a>问题七：<strong>init</strong>.py 文件的作用是什么</h4><p><code>__init__.py</code> 文件是 Python 包的初始化文件，它会在包被导入时自动执行。<br>但自从 PEP 420 开始（即 Python 3.3），一个目录不需要 <code>__init__.py</code> 文件也可以自动成为包。<br>也就是说一般情况下加不加 <code>__init__.py</code> 文件无所谓。</p>
+<h4 id="推荐使用方式"><a href="#推荐使用方式" class="headerlink" title="推荐使用方式"></a>推荐使用方式</h4><p>通过 <code>sys.path.append()</code> 的方式可以解决燃眉之急，但这种做法并不在大型项目中推荐，因为它会导致项目的依赖关系变得复杂，且不利于代码的维护。<br>同理，使用环境变量 <code>PYTHONPATH</code> 来指定搜索路径也是相当于手动修改 <code>sys.path</code>，也不推荐。</p>
+<p>以下是几种替代方案：</p>
+<p>可编辑安装：<code>setuptools + editable install</code><br>在 <code>project</code> 下创建 <code>setup.py</code> 文件，内容如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">&quot;bvget&quot;</span>,</span><br><span class="line">    version=<span class="string">&quot;0.1.0&quot;</span>,</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>运行：<code>pip install -e .</code></p>
+<p>或者使用 uv 进行可编辑安装，进入 project 目录（要求底下有 setup.py 文件或者 pyproject.toml 文件），执行：uv pip install -e .。</p>
+<ul>
+<li>.pth 文件：Python 在启动时会自动读取 site-packages 目录下的 .pth 文件，并将其中的路径添加到 sys.path</li>
+<li>安装为包：将自定义模块打包并安装到 Python 环境中，使其可以被直接导入，该方法在 bvget 项目中已经提供具体做法</li>
+</ul>
+<blockquote>
+<p>参考<br><a target="_blank" rel="noopener" href="https://summer24.net9.org/backend/crawler/slide.pdf">清华酒井24爬虫讲义</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time">StackOverflow 上关于相对导入的讨论</a></p>
+</blockquote>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <span itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</span>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    
+                </div>
+                <div class="pull-date">
+                    <time datetime="2025-05-03T15:14:05.028Z" itemprop="dateModified">最后编辑：2025-05-03</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" Gentoo 安装记录" href="/posts/gentoo/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+        <div class="comment-post">
+            
+        </div>
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/assets/avatar.png" alt="kingpoem" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">nya~</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                3
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                    <aside id="krw-toc" class="widget widget-kratos-toc clearfix toc-div-class" >
+    <div class="photo-background"></div>
+    <h4 class="widget-title no-after">
+        <i class="fa fa-compass"></i>
+        文章目录
+        <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
+    </h4>
+    <div class="textwidget">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%A1%88"><span class="toc-text">Python 环境管理的几种方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E5%8F%96-B-%E5%B7%A5%E7%A8%8B%E8%A7%86%E9%A2%91"><span class="toc-text">爬取 B 工程视频</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E7%94%A8-lxml-%E8%80%8C%E4%B8%8D%E6%98%AF-BeautifulSoup-%E7%9A%84%E7%90%86%E7%94%B1"><span class="toc-text">选用 lxml 而不是 BeautifulSoup 的理由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E8%BF%B0-XPath"><span class="toc-text">简述 XPath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lxml-html-%E5%92%8C-lxml-etree-HTML-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">lxml.html 和 lxml.etree.HTML 的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E2%80%93%E5%8D%95%E4%B8%AA%E8%A7%86%E9%A2%91%E4%B8%AD%E7%9A%84-playinfo-%E4%BF%A1%E6%81%AF"><span class="toc-text">数据分析–单个视频中的 playinfo 信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86-bvget-%E5%91%BD%E4%BB%A4%E5%86%99%E5%85%A5%E7%B3%BB%E7%BB%9F%E8%B7%AF%E5%BE%84"><span class="toc-text">将 bvget 命令写入系统路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E8%87%B3-PyPI"><span class="toc-text">上传至 PyPI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-%E5%AF%BC%E5%8C%85%E6%9C%BA%E5%88%B6"><span class="toc-text">Python 导包机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-text">相关概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%9C%BA%E6%99%AF"><span class="toc-text">问题场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9Apython-filename-py-%E5%92%8C-python-m-modulename-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">问题一：python filename.py 和 python -m modulename 的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%9Aif-name-%E2%80%98main%E2%80%98-%E8%AF%AD%E5%8F%A5%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">问题二：if name &#x3D;&#x3D; ‘main‘: 语句的作用是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%89%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-B-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-A-py"><span class="toc-text">问题三：如何在 B.py 中导入 A.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%9B%9B%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-C-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-A-py"><span class="toc-text">问题四：如何在 C.py 中导入 A.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BA%94%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-D-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-C-py"><span class="toc-text">问题五：如何在 D.py 中导入 C.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%85%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8-E-py-%E4%B8%AD%E5%AF%BC%E5%85%A5-D-py"><span class="toc-text">问题六：如何在 E.py 中导入 D.py</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%83%EF%BC%9Ainit-py-%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">问题七：init.py 文件的作用是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">推荐使用方式</span></a></li></ol></li></ol>
+    </div>
+</aside>
+                
+                
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/posts/bvget/"><i class="fa fa-book"></i> 爬B工程及 Python 导包机制</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/gentoo/"><i class="fa fa-book"></i> Gentoo 安装记录</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/new-blog-md/"><i class="fa fa-book"></i> Windows 更新的链式反应</a>
+            
+          
+        
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                            <li>
+                                <a href="https://github.com/kingpoem" target="_blank" rel="nofollow">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/atom.xml" target="_blank" rel="nofollow">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2025 Kingpoem's blog 版权所有.</li>
+                            <li>本站已在风雨中飘摇<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://github.com/kingpoem" target="_blank">kingpoem</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                            <div>
+                                
+                                    <li>由 <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a> 强力驱动</li>
+                                
+                                    <li>在 <a href="https://github.io" target="_blank">Github Pages</a> 暖心托管</li>
+                                
+                            </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<!-- 额外的追加注入项 -->
+
+
+    </body>
+</html>
