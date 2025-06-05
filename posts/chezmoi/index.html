@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+    <link rel="icon" href="/assets/avatar.png">
+  
+  
+  <title>使用 chezomi 管理你的 dotfiles | Kingpoem&#39;s blog</title>
+  <link rel="canonical" href="https://kingpoem.github.io/posts/chezmoi/">
+  <meta name="author" content="kingpoem" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="chezmoi dotfiles" />
+  
+  <meta name="description" content="前言在许久之前自己手写了一个 dotfiles 的管理工具，但在开发的过程中还是遇到了不少问题，最后还是只能在自己的机器上复现，在其他人的机器上还不如直接复制粘贴来的方便。最近发现了这个 chezmoi 工具，它可以很方便的管理你的 dotfiles，解决了跨平台与兼容性、敏感数据安全、多设备配置同步与管理和模板与自动化问题。这里来推广一下并给出一份入门级使用教程。  注意：如果你想使用这个工具，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 chezomi 管理你的 dotfiles">
+<meta property="og:url" content="https://kingpoem.github.io/posts/chezmoi/index.html">
+<meta property="og:site_name" content="Kingpoem&#39;s blog">
+<meta property="og:description" content="前言在许久之前自己手写了一个 dotfiles 的管理工具，但在开发的过程中还是遇到了不少问题，最后还是只能在自己的机器上复现，在其他人的机器上还不如直接复制粘贴来的方便。最近发现了这个 chezmoi 工具，它可以很方便的管理你的 dotfiles，解决了跨平台与兼容性、敏感数据安全、多设备配置同步与管理和模板与自动化问题。这里来推广一下并给出一份入门级使用教程。  注意：如果你想使用这个工具，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-06-01T05:38:44.000Z">
+<meta property="article:modified_time" content="2025-06-05T13:30:20.712Z">
+<meta property="article:author" content="kingpoem">
+<meta property="article:tag" content="chezmoi dotfiles">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Kingpoem's blog" type="application/atom+xml">
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="all"></link>
+  
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></link>
+  
+  
+    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></link>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner.webp');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner_dark.webp');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+    
+  </style>
+
+  <!-- 额外的追加注入项 -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    <li>
+                                        
+                                            <a href="/">
+                                        
+                                            
+                                                <i class="fa fa-home"></i>
+                                            
+                                            首页
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/archives/">
+                                        
+                                            
+                                                <i class="fa fa-file"></i>
+                                            
+                                            档案馆
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/friends/">
+                                        
+                                            
+                                                <i class="fa fa-users"></i>
+                                            
+                                            友链
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a>
+                                        
+                                            
+                                                <i class="fa fa-link"></i>
+                                            
+                                            链接
+                                        </a>
+                                        
+                                            <ul class="sub-menu">
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">
+                                                            
+                                                                <i class="fa fa-code"></i>
+                                                            
+                                                            代码仓库
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://wiki.krt.moe">
+                                                            
+                                                                <i class="fa fa-book"></i>
+                                                            
+                                                            项目文档
+                                                        </a>
+                                                    </li>
+                                                
+                                            </ul>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Kingpoem&#39;s blog</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Kingpoem&#39;s blog</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kingpoem.github.io/posts/chezmoi/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">使用 chezomi 管理你的 dotfiles</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2025-06-01T05:38:44.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-06-01</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">kingpoem</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.79K
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+                <div class="kratos-post-inner-toc toc-div-class" >
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-number">2.</span> <span class="toc-text">快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">添加命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">2.3.</span> <span class="toc-text">更换编辑器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B9%B6%E5%BA%94%E7%94%A8"><span class="toc-number">2.4.</span> <span class="toc-text">更改配置文件并应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-chezmoi-chezmoi-toml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.5.</span> <span class="toc-text">~&#x2F;.config&#x2F;chezmoi&#x2F;chezmoi.toml 配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-number">3.</span> <span class="toc-text">模板</span></a></li></ol>
+                </div>
+            
+            <hr />
+            <div itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在许久之前自己手写了一个 dotfiles 的管理工具，但在开发的过程中还是遇到了不少问题，最后还是只能在自己的机器上复现，在其他人的机器上还不如直接复制粘贴来的方便。最近发现了这个 <strong>chezmoi</strong> 工具，它可以很方便的管理你的 dotfiles，解决了跨平台与兼容性、敏感数据安全、多设备配置同步与管理和模板与自动化问题。这里来推广一下并给出一份入门级使用教程。</p>
+<blockquote>
+<p>注意：如果你想使用这个工具，请一定提前备份已有的 dotfiles，以免因为刚上手时不清楚命令的具体运作方式导致备份丢失。</p>
+</blockquote>
+<p>chezmoi 会在你自己的机器上新建一个 <code>~/.local/share/chezmoi</code> 目录，你可以往这个目录里手动添加你需要它管理的配置文件，然后 chezmoi 会将你原来的配置文件复制并改名为以 <code>dot_xxx</code> 形式的文件到这个新目录下，接着就可以通过 github 平台来管理这个新目录。除了 <code>dot_xxx</code> 形式的文件外，还可以创建 <code>run_xxx</code> 等形式的文件来存储跨平台用的脚本。</p>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S chezmoi <span class="comment"># archlinux 安装 chezmoi</span></span><br><span class="line">chezmoi init <span class="comment"># 在任意路径下初始化，会自动在系统固定路径创建新目录 ~/.local/share/chezmoi </span></span><br><span class="line">chezmoi <span class="built_in">cd</span> <span class="comment"># 进入这个刚创建的新目录</span></span><br><span class="line">chezmoi add ~/.zshrc <span class="comment"># 添加需要管理的配置文件</span></span><br><span class="line"><span class="comment"># 当你添加完以后</span></span><br><span class="line"><span class="comment"># 手动在 Github 上创建一个新的仓库</span></span><br><span class="line"><span class="comment"># 接着就是正常的上传操作了</span></span><br><span class="line">git remote add origin git@github.com:<span class="variable">$GITHUB_USERNAME</span>/dotfiles.git</span><br><span class="line">git branch -M main</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加命令"><a href="#添加命令" class="headerlink" title="添加命令"></a>添加命令</h3><p>更完整的添加命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chezmoi add .zshrc <span class="comment"># 添加文件</span></span><br><span class="line">chezmoi add -x .config/fish/functions/ <span class="comment"># 添加文件夹</span></span><br><span class="line">chezmoi add -xa .config/fish/functions <span class="comment"># 递归添加文件夹和子目录下的全部内容</span></span><br><span class="line">chezmoi add -T .xprofile <span class="comment"># 添加临时内容</span></span><br><span class="line">chezmoi add .tmux.conf --follow <span class="comment"># 添加软链接对应的原始内容，而不是软链接符号</span></span><br><span class="line">chezmoi managed <span class="comment"># 列出所管理的内容路径</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>~&#x2F;.config&#x2F;chezmoi&#x2F;chezmoi.toml<br>使用 <code>chezmoi edit-config</code> 命令可以自动打开并编辑 chezmoi 的配置文件<br>我习惯所有修改配置文件的命令都是该程序名后面加个 <code>c</code><br><code>alias chezmoic=&quot;chezmoi edit-config&quot;</code></p>
+</blockquote>
+<h3 id="更换编辑器"><a href="#更换编辑器" class="headerlink" title="更换编辑器"></a>更换编辑器</h3><p>更改 chezmoi 默认编辑器为 nvim:</p>
+<p>在 <code>~/.config/chezmoi/chezmoi.toml</code> 中添加以下内容：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[editor]</span></span><br><span class="line">  <span class="attr">command</span> = <span class="string">&quot;nvim&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者官方推荐的使用 VSCode:</span></span><br><span class="line"></span><br><span class="line"><span class="section">[editor]</span></span><br><span class="line">  <span class="attr">command</span> = <span class="string">&quot;code&quot;</span></span><br><span class="line">  <span class="attr">args</span> = [<span class="string">&quot;--wait&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改配置文件并应用"><a href="#更改配置文件并应用" class="headerlink" title="更改配置文件并应用"></a>更改配置文件并应用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">chezmoi edit ~/.zshrc <span class="comment"># 日后的更改都是通过修改这个新目录下的配置文件来实现的</span></span><br><span class="line"><span class="comment"># 注意上面的命令看似是修改了 ~/.zshrc 文件，但实际上是修改了 ~/.local/share/chezmoi/dot_zshrc 文件</span></span><br><span class="line"><span class="comment"># 如果你还是修改了原来的配置文件，请使用 chezmoi add ~/.zshrc 重新添加到新目录下来同步</span></span><br><span class="line"><span class="comment"># 注意在上面这个情况下不要使用 chezmoi apply ~/.zshrc 这可能会导致你的配置丢失</span></span><br><span class="line"></span><br><span class="line">chezmoi apply <span class="comment"># 将新目录下的配置文件覆盖机器上的配置文件，请特别注意这条命令的使用，可能会导致你的现有更改消失</span></span><br><span class="line"><span class="comment"># 之后再使用 git 命令像正常开发一样提交更改到 Github 上</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者更方便些，融合上面两条命令</span></span><br><span class="line">chezmoi edit ~/.zshrc --apply <span class="comment"># 编辑并立即应用</span></span><br></pre></td></tr></table></figure>
+
+<p>为了便于平常更改，我在 <code>~/.zshrc</code> 中添加了以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> zshc=<span class="string">&quot;chezmoi edit ~/.zshrc --apply &amp;&amp; source ~/.zshrc&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>查看更改</strong></p>
+<p>比较本地的两个配置文件之间的差异</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chezmoi diff</span><br><span class="line">chezmoi diff ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="config-chezmoi-chezmoi-toml-配置文件"><a href="#config-chezmoi-chezmoi-toml-配置文件" class="headerlink" title="~/.config/chezmoi/chezmoi.toml 配置文件"></a><code>~/.config/chezmoi/chezmoi.toml</code> 配置文件</h3><p>这个配置文件可以配置chezmoi自身的一些行为，这里提供我的一份简单配置：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[data]</span></span><br><span class="line">    <span class="attr">email</span> = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">name</span> = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[edit]</span></span><br><span class="line">    <span class="attr">command</span> = <span class="string">&quot;nvim&quot;</span></span><br><span class="line">    <span class="attr">apply</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[git]</span></span><br><span class="line">    <span class="attr">autoCommit</span> = <span class="literal">true</span></span><br><span class="line">    <span class="attr">autoPush</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，chezmoi 不允许添加自己的配置文件管理，也就是说这份 toml 文件是无法 <code>chezmoi add</code> 的。</p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>chezmoi 解决在多台机器上管理配置文件的方案是使用模板。模板里会留有一些变量，在不同机器上会根据机器的自身特性来动态替换这些变量。</p>
+<p>以添加 <code>~/.gitconfig</code> 为例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chezmoi data | jq <span class="comment"># 查看当前机器的模板变量</span></span><br><span class="line"><span class="comment"># 如果有 name 变量但是没有 email 变量，就还需要在配置文件中添加 email 变量</span></span><br><span class="line"></span><br><span class="line">chezmoi add ~/.gitconfig --template <span class="comment"># 会在 ~/.local/share/chezmoi 目录下创建一个 .gitconfig.tmpl 文件</span></span><br></pre></td></tr></table></figure>
+
+<p>在其他设备上初始化时，可以使用如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chezmoi init https://github.com/kingpoem/dotconfig.git</span><br></pre></td></tr></table></figure>
+
+<p>上传加密文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S age <span class="comment"># archlinux 安装 age 加密工具</span></span><br><span class="line">chezmoi add --encrypt ~/.ssh/id_rsa <span class="comment"># 加密文件</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考<br><a target="_blank" rel="noopener" href="https://www.chezmoi.io/">chezmoi 官方文档</a><br><a target="_blank" rel="noopener" href="https://zhaohongxuan.github.io/2022/08/05/use-chezmoi-manage-dotfiles/">Hank 的博客</a><br><a target="_blank" rel="noopener" href="https://axionl.me/p/%E5%BD%92%E6%A1%A3-%E7%94%A8-chezmoi-%E7%AE%A1%E7%90%86%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">初等記憶體的博客</a><br><a target="_blank" rel="noopener" href="https://github.com/twpayne/dotfiles">chezmoi 作者自己的点文件</a></p>
+</blockquote>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <span itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</span>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/chezmoi-dotfiles/" rel="tag">chezmoi dotfiles</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2025-06-05T13:30:20.712Z" itemprop="dateModified">最后编辑：2025-06-05</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" 爬B工程及 Python 导包机制" href="/posts/bvget/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+        <div class="comment-post">
+            
+        </div>
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/assets/avatar.png" alt="kingpoem" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">nya~</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                4
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                1
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                    <aside id="krw-toc" class="widget widget-kratos-toc clearfix toc-div-class" >
+    <div class="photo-background"></div>
+    <h4 class="widget-title no-after">
+        <i class="fa fa-compass"></i>
+        文章目录
+        <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
+    </h4>
+    <div class="textwidget">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-text">快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%91%BD%E4%BB%A4"><span class="toc-text">添加命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-text">更换编辑器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B9%B6%E5%BA%94%E7%94%A8"><span class="toc-text">更改配置文件并应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-chezmoi-chezmoi-toml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">~&#x2F;.config&#x2F;chezmoi&#x2F;chezmoi.toml 配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-text">模板</span></a></li></ol>
+    </div>
+</aside>
+                
+                
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/chezmoi-dotfiles/" style="font-size: 0.6em;">chezmoi dotfiles</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/posts/chezmoi/"><i class="fa fa-book"></i> 使用 chezomi 管理你的 dotfiles</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/bvget/"><i class="fa fa-book"></i> 爬B工程及 Python 导包机制</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/gentoo/"><i class="fa fa-book"></i> Gentoo 安装记录</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/new-blog-md/"><i class="fa fa-book"></i> Windows 更新的链式反应</a>
+            
+          
+        
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                            <li>
+                                <a href="https://github.com/kingpoem" target="_blank" rel="nofollow">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/atom.xml" target="_blank" rel="nofollow">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2025 Kingpoem's blog 版权所有.</li>
+                            <li>本站已在风雨中飘摇<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://github.com/kingpoem" target="_blank">kingpoem</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                            <div>
+                                
+                                    <li>由 <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a> 强力驱动</li>
+                                
+                                    <li>在 <a href="https://github.io" target="_blank">Github Pages</a> 暖心托管</li>
+                                
+                            </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<!-- 额外的追加注入项 -->
+
+
+    </body>
+</html>
