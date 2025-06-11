@@ -27,7 +27,7 @@
 <meta property="og:description" content="Windows 更新干掉了自己2024年11月22日，就在我开心使用 Arch+Win11 双系统的时候，一次 Windows 重启更新后，又抽搐般的反复重启了几次。当在 grub 界面选择 Windows 作为启动项时，屏幕上赫然显现下面2行字： 12错误：文件&quot;&#x2F;efi&#x2F;Microsoft&#x2F;Boot&#x2F;boogmgfw.efi&quot; 未找到按任意键继续... 然后就再也进去不 W">
 <meta property="og:locale">
 <meta property="article:published_time" content="2025-05-03T14:06:14.000Z">
-<meta property="article:modified_time" content="2025-05-03T14:27:19.443Z">
+<meta property="article:modified_time" content="2025-06-11T13:43:51.132Z">
 <meta property="article:author" content="kingpoem">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="theme">
@@ -225,7 +225,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            ~3.06K
+                            ~3.17K
                         
                         字
                     </li>
@@ -254,6 +254,8 @@
 <li>双系统（Win11 + Arch）</li>
 </ul>
 <p>注意这里的2个 efi 分区，第一个是 Windows 的，第二个是 Arch 的，grub 装在了 efi2 里，后面3个 recovery 是 Windows 的恢复分区，一般来说新电脑会有1个，其他的是 Windows 自己系统升级的产物，真正在工作的只有1个。较新的分区一般会位于磁盘的后部（更高的扇区），原厂或系统安装的分区通常在磁盘的前部（可以通过在 powershell 中使用reagentc &#x2F;info查看当前使用的是哪个恢复分区）。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过磁盘号+分区号可以删除多余的恢复分区</span></span><br><span class="line"><span class="built_in">Remove-Partition</span> <span class="literal">-DiskNumber</span> <span class="number">0</span> <span class="literal">-PartitionNumber</span> <span class="number">1</span>(换成你要删除的分区号) <span class="literal">-Confirm</span>:<span class="variable">$false</span></span><br></pre></td></tr></table></figure>
+
 <p>通过 <code>efibootmgr</code> 查看 efi 的启动顺序，会发现没有 Windows 的引导，所以可以自己手动创建一条 Windows 的引导，然后通过 <code>efibootmgr -o</code> 可以自定义启动顺序。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 手动创建 Windows 引导项</span></span><br><span class="line">sudo efibootmgr --disk /dev/nvme0n1 --part 1 --create --label <span class="string">&quot;Windows(Custom)&quot;</span> --loader <span class="string">&quot;\\EFI\\Microsoft\\Boot\\bootmgr.efi&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置下次启动项</span></span><br><span class="line">sudo efibootmgr --bootnext 0002</span><br><span class="line">systemctl reboot</span><br></pre></td></tr></table></figure>
 
@@ -294,7 +296,7 @@
                     
                 </div>
                 <div class="pull-date">
-                    <time datetime="2025-05-03T14:27:19.443Z" itemprop="dateModified">最后编辑：2025-05-03</time>
+                    <time datetime="2025-06-11T13:43:51.132Z" itemprop="dateModified">最后编辑：2025-06-11</time>
                 </div>
             </div>
         </footer>

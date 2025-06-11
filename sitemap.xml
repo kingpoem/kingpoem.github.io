@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kingpoem.github.io/posts/new-blog-md/</loc>
+    
+    <lastmod>2025-06-11T13:43:51.132Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kingpoem.github.io/posts/chezmoi/</loc>
     
     <lastmod>2025-06-05T13:30:20.712Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://kingpoem.github.io/posts/gentoo/</loc>
     
     <lastmod>2025-05-03T14:57:31.631Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kingpoem.github.io/posts/new-blog-md/</loc>
-    
-    <lastmod>2025-05-03T14:27:19.443Z</lastmod>
     
   </url>
   
