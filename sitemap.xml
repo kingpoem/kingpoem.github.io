@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kingpoem.github.io/posts/archlinux/</loc>
+    
+    <lastmod>2025-09-21T07:51:01.460Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kingpoem.github.io/posts/chezmoi/</loc>
     
     <lastmod>2025-06-20T11:55:59.681Z</lastmod>
