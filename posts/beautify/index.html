@@ -27,7 +27,7 @@
 <meta property="og:description" content="主要讲解安装完后的 archlinux 如何配置各种点文件。注意文章时效性（不会一直更新）。 管理点文件这是一个令人相当头疼的问题，我曾写过一个点文件的管理器，但是相当依赖我自己的配置，而且点文件变化很大，管理起来太费心费力，几乎没怎么用就废弃了那个点文件管理器。后面发现了 chezmoi 这个工具，它有很多优点，但是，用它来管理各种各样的点文件依旧费心费力。所以，我采取了只是备份的方案，只要 c">
 <meta property="og:locale">
 <meta property="article:published_time" content="2025-09-21T08:47:17.000Z">
-<meta property="article:modified_time" content="2025-09-21T10:20:05.838Z">
+<meta property="article:modified_time" content="2025-09-21T11:14:27.529Z">
 <meta property="article:author" content="kingpoem">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="theme">
@@ -225,7 +225,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            ~2.79K
+                            ~3.32K
                         
                         字
                     </li>
@@ -239,7 +239,7 @@
             
             
                 <div class="kratos-post-inner-toc toc-div-class" >
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E7%82%B9%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">管理点文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminal-Emulator"><span class="toc-number">2.</span> <span class="toc-text">Terminal Emulator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell"><span class="toc-number">3.</span> <span class="toc-text">Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-zshrc"><span class="toc-number">3.1.</span> <span class="toc-text">关于 ~&#x2F;.zshrc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#font-and-icons"><span class="toc-number">4.</span> <span class="toc-text">font and icons</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E7%82%B9%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">管理点文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminal-Emulator"><span class="toc-number">2.</span> <span class="toc-text">Terminal Emulator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell"><span class="toc-number">3.</span> <span class="toc-text">Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-zshrc"><span class="toc-number">3.1.</span> <span class="toc-text">关于 ~&#x2F;.zshrc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#font-and-icons"><span class="toc-number">4.</span> <span class="toc-text">font and icons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0%E5%AD%97%E4%BD%93%E7%BC%93%E5%AD%98"><span class="toc-number">4.1.</span> <span class="toc-text">自动刷新字体缓存</span></a></li></ol></li></ol>
                 </div>
             
             <hr />
@@ -375,7 +375,11 @@
 <li><code>ttf-nerd-fonts-symbols-common</code></li>
 <li><code>maple mono</code></li>
 </ul>
-</div>
+<h3 id="自动刷新字体缓存"><a href="#自动刷新字体缓存" class="headerlink" title="自动刷新字体缓存"></a>自动刷新字体缓存</h3><p>手动刷新需要执行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fc-cache -fv</span><br></pre></td></tr></table></figure>
+
+<p>可以在 <code>/etc/pacman.d/hooks</code> 目录下创建 hook 文件，每次安装字体文件后自动刷新（GPT生成）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[Trigger]</span><br><span class="line">Operation = Install</span><br><span class="line">Operation = Upgrade</span><br><span class="line">Type = Package</span><br><span class="line">Target = ttf-*</span><br><span class="line">Target = otf-*</span><br><span class="line">Target = adobe-*</span><br><span class="line">Target = noto-*</span><br><span class="line">Target = fontconfig</span><br><span class="line">Target = wqy-*</span><br><span class="line">Target = liberation-*</span><br><span class="line">Target = cantarell-*</span><br><span class="line">Target = dejavu-*</span><br><span class="line">Target = ubuntu-fonts</span><br><span class="line">Target = microsoft-*</span><br><span class="line">Target = nerd-fonts-*</span><br><span class="line"></span><br><span class="line">[Action]</span><br><span class="line">Description = Refreshing font cache after font installation or upgrade...</span><br><span class="line">When = PostTransaction</span><br><span class="line">Exec = /usr/bin/fc-cache -fv</span><br></pre></td></tr></table></figure></div>
         </div>
         
             <div class="kratos-copyright text-center clearfix">
@@ -392,7 +396,7 @@
                     
                 </div>
                 <div class="pull-date">
-                    <time datetime="2025-09-21T10:20:05.838Z" itemprop="dateModified">最后编辑：2025-09-21</time>
+                    <time datetime="2025-09-21T11:14:27.529Z" itemprop="dateModified">最后编辑：2025-09-21</time>
                 </div>
             </div>
         </footer>
@@ -473,7 +477,7 @@
         <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
     </h4>
     <div class="textwidget">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E7%82%B9%E6%96%87%E4%BB%B6"><span class="toc-text">管理点文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminal-Emulator"><span class="toc-text">Terminal Emulator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell"><span class="toc-text">Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-zshrc"><span class="toc-text">关于 ~&#x2F;.zshrc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#font-and-icons"><span class="toc-text">font and icons</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E7%82%B9%E6%96%87%E4%BB%B6"><span class="toc-text">管理点文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Terminal-Emulator"><span class="toc-text">Terminal Emulator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell"><span class="toc-text">Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-zshrc"><span class="toc-text">关于 ~&#x2F;.zshrc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#font-and-icons"><span class="toc-text">font and icons</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0%E5%AD%97%E4%BD%93%E7%BC%93%E5%AD%98"><span class="toc-text">自动刷新字体缓存</span></a></li></ol></li></ol>
     </div>
 </aside>
                 
