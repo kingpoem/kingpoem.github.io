@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+    <link rel="icon" href="/assets/avatar.png">
+  
+  
+  <title>如何使用浏览器 | Kingpoem&#39;s blog</title>
+  <link rel="canonical" href="https://kingpoem.github.io/posts/stfw/">
+  <meta name="author" content="kingpoem" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="前言自大学以来，我最初长期使用 Edge。当时由于还不会科学上网，Edge 在众多浏览器中脱颖而出。至于使用 Edge 之前用的浏览器，已记不太清——大概尝试过一些应用商店里的零散浏览器。 在使用 Edge 的过程中，我逐渐探索了浏览器的各种实用功能：从批量清理广告、开启垂直标签页，到尝试各种插件，这些简单而便利的功能极大地丰富了日常使用体验。 随着需求的增长，作者又开始尝试 Google Chr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用浏览器">
+<meta property="og:url" content="https://kingpoem.github.io/posts/stfw/index.html">
+<meta property="og:site_name" content="Kingpoem&#39;s blog">
+<meta property="og:description" content="前言自大学以来，我最初长期使用 Edge。当时由于还不会科学上网，Edge 在众多浏览器中脱颖而出。至于使用 Edge 之前用的浏览器，已记不太清——大概尝试过一些应用商店里的零散浏览器。 在使用 Edge 的过程中，我逐渐探索了浏览器的各种实用功能：从批量清理广告、开启垂直标签页，到尝试各种插件，这些简单而便利的功能极大地丰富了日常使用体验。 随着需求的增长，作者又开始尝试 Google Chr">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-09-22T03:33:05.000Z">
+<meta property="article:modified_time" content="2025-09-22T08:51:59.242Z">
+<meta property="article:author" content="kingpoem">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="theme">
+<meta property="article:tag" content="kratos-rebirth">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Kingpoem's blog" type="application/atom+xml">
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="all"></link>
+  
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></link>
+  
+  
+    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></link>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner.webp');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner_dark.webp');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+    
+  </style>
+
+  <!-- 额外的追加注入项 -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    <li>
+                                        
+                                            <a href="/">
+                                        
+                                            
+                                                <i class="fa fa-home"></i>
+                                            
+                                            首页
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/archives/">
+                                        
+                                            
+                                                <i class="fa fa-file"></i>
+                                            
+                                            档案馆
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/friends/">
+                                        
+                                            
+                                                <i class="fa fa-users"></i>
+                                            
+                                            友链
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a>
+                                        
+                                            
+                                                <i class="fa fa-link"></i>
+                                            
+                                            链接
+                                        </a>
+                                        
+                                            <ul class="sub-menu">
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">
+                                                            
+                                                                <i class="fa fa-code"></i>
+                                                            
+                                                            代码仓库
+                                                        </a>
+                                                    </li>
+                                                
+                                                    <li>
+                                                        <a target="_blank" rel="noopener" href="https://wiki.krt.moe">
+                                                            
+                                                                <i class="fa fa-book"></i>
+                                                            
+                                                            项目文档
+                                                        </a>
+                                                    </li>
+                                                
+                                            </ul>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Kingpoem&#39;s blog</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Kingpoem&#39;s blog</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kingpoem.github.io/posts/stfw/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">如何使用浏览器</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2025-09-22T03:33:05.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-09-22</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">kingpoem</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~3.68K
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+                <div class="kratos-post-inner-toc toc-div-class" >
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">浏览器工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E8%99%AB"><span class="toc-number">3.</span> <span class="toc-text">爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">高级搜索方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG"><span class="toc-number">5.</span> <span class="toc-text">RAG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BFURL"><span class="toc-number">6.</span> <span class="toc-text">模板URL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%93%E5%8C%85"><span class="toc-number">7.</span> <span class="toc-text">抓包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E5%8C%85"><span class="toc-number">8.</span> <span class="toc-text">封包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URL-Scheme"><span class="toc-number">9.</span> <span class="toc-text">URL Scheme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%8B%A6%E6%88%AA"><span class="toc-number">10.</span> <span class="toc-text">常见拦截</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81-IP-%E5%9C%B0%E5%9D%80"><span class="toc-number">11.</span> <span class="toc-text">常见 IP 地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81NAS-%E5%92%8C-Alist"><span class="toc-number">12.</span> <span class="toc-text">服务器、NAS 和 Alist</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chromium"><span class="toc-number">13.</span> <span class="toc-text">Chromium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extension"><span class="toc-number">14.</span> <span class="toc-text">Extension</span></a></li></ol>
+                </div>
+            
+            <hr />
+            <div itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自大学以来，我最初长期使用 Edge。当时由于还不会科学上网，Edge 在众多浏览器中脱颖而出。至于使用 Edge 之前用的浏览器，已记不太清——大概尝试过一些应用商店里的零散浏览器。</p>
+<p>在使用 Edge 的过程中，我逐渐探索了浏览器的各种实用功能：从批量清理广告、开启垂直标签页，到尝试各种插件，这些简单而便利的功能极大地丰富了日常使用体验。</p>
+<p>随着需求的增长，作者又开始尝试 Google Chrome 和 Firefox。直到今天，这三款浏览器依然是我的主力选择。</p>
+<h2 id="浏览器工作原理"><a href="#浏览器工作原理" class="headerlink" title="浏览器工作原理"></a>浏览器工作原理</h2><p>以<a target="_blank" rel="noopener" href="https://njuptnavi.top/">南京邮电大学生存手册</a>为例，简单来说：</p>
+<ol>
+<li>你在浏览器中输入 <code>njuptnavi.top</code></li>
+<li><code>njupnavi.top</code> 经过 DNS 解析转换成 IP 地址（一串数字，比如 <code>192.168.1.1</code>，事实上并不是这串）</li>
+<li>通过 IP 地址，浏览器和目标服务器建立连接（能通信）</li>
+<li>建立连接后，浏览器发送资源请求，正式请求需要什么</li>
+<li>服务器收到请求后，将资源（也就是你看到的东西，比如文字，图片，音频，视频）返回</li>
+</ol>
+<p>添加更多条件（使用 linux 系统，连接校园网，同时开启 clash-verge-rev 的系统代理和虚拟网卡，使用规则），来看看真实情况的简化版本：</p>
+<ol>
+<li>我在 google 浏览器中输入 <code>njuptnavi.top</code>，打开 google 浏览器其实是启动 <code>/opt/google/chrome/chrome</code> 进程，由于要请求的资源包括文字、图片等多种媒体文件，而请求这些资源的端口是不一样的，所以会同时有多个端口在工作，使用命令 <code>ps aux | grep google</code> 可以看到相关信息</li>
+<li>因为我同时打开了系统代理和虚拟网卡（只在浏览器应用场景中，只打开系统代理，或者只打开虚拟网卡都是可以的，这里以我实际使用情况为例），实际的请求会交给虚拟网卡来处理，虚拟网卡实际地址是 <code>28.0.0.1</code>，虚拟网卡收到请求后将数据发给实际代理工具 <code>28.0.0.2</code>，由代理工具进行实际的加密和转发</li>
+<li>经过加密的数据发送到校园网，校园网进行 DNS 解析，将 <code>njuptnavi.top</code> 转换成一个 IP 地址，因为 <code>njuptnavi.top</code> 是有 CDN 服务的（DNS 解析可能不会直接返回网站本体的 IP，而是返回离你最近或最快的 CDN 节点 IP），实际访问的是原网站的镜像站点，校园网将这个 IP 地址返回给本地计算机</li>
+<li>本地计算机再次请求，使用这个 IP 地址通過三次握手和目标服务器建立 TCP 连接（通常是 443 端口，如果是 HTTPS）</li>
+<li>如果是 HTTPS，TCP 建立完成后，会启动 TLS 握手，协商加密算法和证书验证。完成 TLS 握手后，通信才进入加密通道</li>
+<li>当 TCP 和 TLS 建立完成后，浏览器才真正发送 HTTP 请求，比如请求 HTML 文件、图片、JS 文件等</li>
+<li>浏览器收到资源的字节流后，还需要进行本地的解码，渲染，最终将页面呈现给用户</li>
+</ol>
+<p>接下来文章将基本按照上面的请求流程逐层拓展。</p>
+<p>更详细的内容看相关拓展资料。</p>
+<blockquote>
+<p>相关拓展资料：<br><a target="_blank" rel="noopener" href="https://youtu.be/P38FmPAq09E?si=wvozbiIPQEfnWjCI">家庭网络通信原理</a></p>
+</blockquote>
+<h2 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h2><p>爬虫是通过代码模拟用户使用浏览器的行为的技术。一般我们用 Python 来写（其他各种各样的都有）。当你理解浏览器是怎么工作的，你就可以开始写爬虫了。爬虫的具体使用方法请参考相关拓展资料，这里只进行一些综述。</p>
+<p>通过爬虫，你可以将一些文档、音频、视频资源下载到本地。常用的一些场景：</p>
+<ol>
+<li>爬取一款商品的所有带有某关键字的评论</li>
+<li>在某些视频下架之前下载视频到本地</li>
+<li>或者某些网站播放视频过卡，通过下载到本地来提升观看流畅度</li>
+<li>爬取某些作业网站上的所有题目，方便复习</li>
+</ol>
+<p>通常，一些知名网站的相关周边都不会少，不用重复造轮子</p>
+<p>此技术通常也是 Python 卖课点。</p>
+<blockquote>
+<p>相关拓展资料：<br><a target="_blank" rel="noopener" href="https://summer24.net9.org/backend/index_backend/#722">爬虫</a></p>
+</blockquote>
+<h2 id="高级搜索方法"><a href="#高级搜索方法" class="headerlink" title="高级搜索方法"></a>高级搜索方法</h2><p>为什么搜索关键词通常要比搜索一句话要好？<br>搜索引擎会把关键词拆分成“重要词”，然后去索引数据库匹配网页。<br>你可以试试这个<a target="_blank" rel="noopener" href="https://www.google.com/advanced_search">高级搜索</a>,它实际上是发送更加符合浏览器的思维的关键词搜索。<br>这会启示你平常的搜索方法。</p>
+<p>强烈建议看相关拓展资料</p>
+<blockquote>
+<p>相关拓展资料：<br><a target="_blank" rel="noopener" href="https://csdiy.wiki/%E5%BF%85%E5%AD%A6%E5%B7%A5%E5%85%B7/%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2/">信息检索</a></p>
+</blockquote>
+<h2 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h2><p>大模型是如何搜集资料，建立数据库的？以 RAG（Retrieval-Augmented Generation，检索增强生成）和<a target="_blank" rel="noopener" href="https://metaso.cn/">秘塔AI</a>为例，你可以指定它的搜索数据库的范围，比如“全网”。<br>当你向它提出问题（类似于在浏览器中输入搜索关键词）时，它会先对你的问题进行处理：<br>你问他一些问题（类似于在浏览器中输入你的关键词），他会将你的问题提取出核心词，生成向量化的查询，然后在知识库（全网）中进行语义搜索，可以理解为类似于爬虫的行为，然后再进行信息的整合和回答生成。</p>
+<p>在模型爬取一些网页资源的过程中，可能会对这些网页发送大量的请求，而这种行为，类似于 DDos 攻击，会导致网站服务器崩溃。<br>在学习爬虫的时候，你可能听说过 Robots 协议，现在，添加这些协议可能更多的是为了防 AI。</p>
+<h2 id="模板URL"><a href="#模板URL" class="headerlink" title="模板URL"></a>模板URL</h2><p>在浏览器-&gt;设置-&gt;搜索引擎-&gt;网站搜索中，我添加了这么一条：<br><code>https://www.deepl.com/zh/translator#zh/en-us/%s</code><br>其中 %s 是一个占位符，会被浏览器自动替换成你输入的内容。</p>
+<p>我在实际搜索时，可以只输入 <code>fan retrieval</code>（fan是我自定义的“翻译”的意思），然后就可以直接进入 Deepl 页面看到 retrieval 的翻译结果了。</p>
+<h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><p>有没有什么方法可以看到本地计算机和远程服务器具体通信内容呢？</p>
+<p>有的，这种技术称为抓包。</p>
+<p>抓包的原理，是在网络传输的过程中，将 数据包（packet）截获并保存下来，然后对其进行分析。这样我们就能看到：</p>
+<ul>
+<li>本地程序发送了什么请求（HTTP 请求头、参数等）</li>
+<li>远程服务器返回了什么响应（响应码、数据内容等）</li>
+<li>通信是否加密（HTTP 明文 vs HTTPS 加密流量）</li>
+<li>哪些端口、协议在实际工作（TCP、UDP、TLS、DNS等）</li>
+</ul>
+<p>常见的抓包工具：</p>
+<ul>
+<li>Wireshark（跨平台桌面工具，功能强大，能解析各种协议）</li>
+<li>PCAPdroid（Android 上的抓包工具，可以不 root 直接捕获流量）</li>
+<li>tcpdump（命令行抓包工具，Linux 常用，输出原始数据包，可结合 Wireshark 解析）</li>
+</ul>
+<p>抓包常常用于调试、分析性能、排查问题，但在公共网络上随意抓别人流量是违法的。</p>
+<h2 id="封包"><a href="#封包" class="headerlink" title="封包"></a>封包</h2><p>与抓包对应的一个概念是封包。</p>
+<p>封包，就是把要传输的数据，按照网络协议的要求，逐层加上必要的“头部信息”，形成一个个可以在网络上传输的小单元——数据包（Packet）的过程。</p>
+<p>常见用词：游戏封包（外挂原理）</p>
+<h2 id="URL-Scheme"><a href="#URL-Scheme" class="headerlink" title="URL Scheme"></a>URL Scheme</h2><p>这种东西只在某些手机上有，我是在看手机去除广告的相关方案时看到的。</p>
+<p>比如 <code>weixin://</code> 可以直接打开微信，<code>taobao://</code> 可以直接跳淘宝。</p>
+<p>这些 URL 协议叫做 Deep Link（深度链接） 或 URI Scheme</p>
+<h2 id="常见拦截"><a href="#常见拦截" class="headerlink" title="常见拦截"></a>常见拦截</h2><p>某些网站无法访问的原因可能是 GFW 的 DNS 劫持和 DNS 污染</p>
+<p>从 qq 访问某些网页链接被拦截属于应用层(weixin110)拦截。</p>
+<p>相关内容直接看拓展</p>
+<blockquote>
+<p>相关拓展资料：<br><a target="_blank" rel="noopener" href="https://jason-qianhao.github.io/2021/12/10/dns-jie-chi-he-wu-ran-ji-fan-qiang-de-yuan-li/">DNS劫持和污染</a></p>
+</blockquote>
+<h2 id="常见-IP-地址"><a href="#常见-IP-地址" class="headerlink" title="常见 IP 地址"></a>常见 IP 地址</h2><ul>
+<li><code>127.0.0.1</code> 此为本地计算机回环地址，等同于 <code>localhost</code>，如果你发送带有这个地址的网页，其他人是看不到的</li>
+<li><code>192.168.1.1</code> 这个通常是路由器网关地址</li>
+</ul>
+<h2 id="服务器、NAS-和-Alist"><a href="#服务器、NAS-和-Alist" class="headerlink" title="服务器、NAS 和 Alist"></a>服务器、NAS 和 Alist</h2><p>刚开始学习计算机的时候，我常常不能很清楚的理解服务器是什么，它到底是在哪个国家，哪个地方。事实上，你自己的一台电脑，也可以同时充当客户端和服务器的角色。只要在请求资源，就是客户端，只要在提供资源，就是服务器。</p>
+<p>像阿里云、华为云这些提供的服务器，叫做云服务器技术，比如你要训练一个大模型，需要用到 GPU，开学买的轻薄本根本没有GPU，怎么用 CUDA 啊。这时候就可以租用一些大公司的服务器来使用。</p>
+<p>如果你有存储大量文件和分享的需求，比如需要拍摄大量照片和视频，本地存储不下，或者需要更好的数据安全性和集中管理，可以考虑自行部署 NAS（这是硬件）。然后使用 Alist（软件） 进行分享。</p>
+<h2 id="Chromium"><a href="#Chromium" class="headerlink" title="Chromium"></a>Chromium</h2><p>Chromium 和 Chrome 并不是同一个东西，Chromium 是内核，像 Chrome，Edge，Brave 等一系列浏览器和某些不是浏览器的应用或者内置浏览器的应用都和 Chromium 密不可分。<br>它现在不仅吃内存，还增加了<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yr4meeENt/?share_source=copy_web&vd_source=4e6e3d05c54fbafa49b2a00b5cc81815">反防代理</a>的难度。</p>
+<blockquote>
+<p>相关拓展资料：<br><a target="_blank" rel="noopener" href="https://github.com/ShirasawaSama/CefDetector">CEF Detector</a></p>
+</blockquote>
+<h2 id="Extension"><a href="#Extension" class="headerlink" title="Extension"></a>Extension</h2><p>毫无疑问推荐的是 <strong>沉浸式翻译</strong> 插件。</p>
+<p>其他插件自行了解。</p>
+<p>另外，自行开发插件的难度并不是很高。比如想换一个浏览器主题（插件商店里提供的优质主题还是少了些，使用浏览器插件自定义最好了），可以自行 vibe coding。<br>现在常用的貌似是 <a target="_blank" rel="noopener" href="https://www.plasmo.com/">Plasmo</a> 框架。</p>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <span itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</span>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    
+                </div>
+                <div class="pull-date">
+                    <time datetime="2025-09-22T08:51:59.242Z" itemprop="dateModified">最后编辑：2025-09-22</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" archlinux 常用配置介绍" href="/posts/beautify/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+        <div class="comment-post">
+            
+        </div>
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/assets/avatar.png" alt="kingpoem" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">nya~</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                7
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                0
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                2
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                    <aside id="krw-toc" class="widget widget-kratos-toc clearfix toc-div-class" >
+    <div class="photo-background"></div>
+    <h4 class="widget-title no-after">
+        <i class="fa fa-compass"></i>
+        文章目录
+        <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
+    </h4>
+    <div class="textwidget">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">浏览器工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E8%99%AB"><span class="toc-text">爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%E6%96%B9%E6%B3%95"><span class="toc-text">高级搜索方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAG"><span class="toc-text">RAG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BFURL"><span class="toc-text">模板URL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%93%E5%8C%85"><span class="toc-text">抓包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E5%8C%85"><span class="toc-text">封包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URL-Scheme"><span class="toc-text">URL Scheme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%8B%A6%E6%88%AA"><span class="toc-text">常见拦截</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81-IP-%E5%9C%B0%E5%9D%80"><span class="toc-text">常见 IP 地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81NAS-%E5%92%8C-Alist"><span class="toc-text">服务器、NAS 和 Alist</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chromium"><span class="toc-text">Chromium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extension"><span class="toc-text">Extension</span></a></li></ol>
+    </div>
+</aside>
+                
+                
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/archlinux/" style="font-size: 0.6em;">archlinux</a> <a href="/tags/chezmoi-dotfiles/" style="font-size: 0.6em;">chezmoi dotfiles</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/posts/stfw/"><i class="fa fa-book"></i> 如何使用浏览器</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/beautify/"><i class="fa fa-book"></i> archlinux 常用配置介绍</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/archlinux/"><i class="fa fa-book"></i> archlinux 安装命令自用一览</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/chezmoi/"><i class="fa fa-book"></i> 使用 chezomi 管理你的 dotfiles</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/posts/bvget/"><i class="fa fa-book"></i> 爬B工程及 Python 导包机制</a>
+            
+          
+        
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                            <li>
+                                <a href="https://github.com/kingpoem" target="_blank" rel="nofollow">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/atom.xml" target="_blank" rel="nofollow">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2025 Kingpoem's blog 版权所有.</li>
+                            <li>本站已在风雨中飘摇<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://github.com/kingpoem" target="_blank">kingpoem</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                            <div>
+                                
+                                    <li>由 <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a> 强力驱动</li>
+                                
+                                    <li>在 <a href="https://github.io" target="_blank">Github Pages</a> 暖心托管</li>
+                                
+                            </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<!-- 额外的追加注入项 -->
+
+
+    </body>
+</html>
