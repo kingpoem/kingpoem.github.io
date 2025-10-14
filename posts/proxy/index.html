@@ -19,15 +19,15 @@
   
     <meta name="keywords" content="" />
   
-  <meta name="description" content="继朋友写过梯子使用指南 和梯子使用指南2.0后，我对代理工具有了进一步的认识，此篇做一个阶段性总结。 代理工具以 clash-verge-rev 为例。 局域网连接常见使用场景是电脑上还没有代理工具，而获得代理工具通常也需要开启代理才更方便，于是形成一个闭环。如果此时手机里有代理，可以开启手机的代理和相关局域网连接的许可。然后开启手机热点，电脑连接该热点。 在电脑的系统设置中，配置代理相关项为手动">
+  <meta name="description" content="继朋友写过梯子使用指南和梯子使用指南2.0后，我对代理工具有了进一步的认识，此篇做一个阶段性总结。 代理工具以 clash-verge-rev 为例。 局域网连接常见使用场景是电脑上还没有代理工具，而获得代理工具通常也需要开启代理才更方便，于是形成一个闭环。如果此时手机里有代理，可以开启手机的代理和相关局域网连接的许可。然后开启手机热点，电脑连接该热点。 在电脑的系统设置中，配置代理相关项为手动设">
 <meta property="og:type" content="article">
 <meta property="og:title" content="科学上网再进一步">
 <meta property="og:url" content="https://kingpoem.github.io/posts/proxy/index.html">
 <meta property="og:site_name" content="Kingpoem&#39;s blog">
-<meta property="og:description" content="继朋友写过梯子使用指南 和梯子使用指南2.0后，我对代理工具有了进一步的认识，此篇做一个阶段性总结。 代理工具以 clash-verge-rev 为例。 局域网连接常见使用场景是电脑上还没有代理工具，而获得代理工具通常也需要开启代理才更方便，于是形成一个闭环。如果此时手机里有代理，可以开启手机的代理和相关局域网连接的许可。然后开启手机热点，电脑连接该热点。 在电脑的系统设置中，配置代理相关项为手动">
+<meta property="og:description" content="继朋友写过梯子使用指南和梯子使用指南2.0后，我对代理工具有了进一步的认识，此篇做一个阶段性总结。 代理工具以 clash-verge-rev 为例。 局域网连接常见使用场景是电脑上还没有代理工具，而获得代理工具通常也需要开启代理才更方便，于是形成一个闭环。如果此时手机里有代理，可以开启手机的代理和相关局域网连接的许可。然后开启手机热点，电脑连接该热点。 在电脑的系统设置中，配置代理相关项为手动设">
 <meta property="og:locale">
 <meta property="article:published_time" content="2025-10-08T23:54:40.000Z">
-<meta property="article:modified_time" content="2025-10-09T00:47:35.429Z">
+<meta property="article:modified_time" content="2025-10-14T12:07:42.159Z">
 <meta property="article:author" content="kingpoem">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="theme">
@@ -225,7 +225,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            861
+                            1238
                         
                         字
                     </li>
@@ -239,11 +239,11 @@
             
             
                 <div class="kratos-post-inner-toc toc-div-class" >
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">局域网连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E5%92%8C%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1"><span class="toc-number">2.</span> <span class="toc-text">系统代理和虚拟网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">配置文件组成</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">局域网连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E5%92%8C%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1"><span class="toc-number">2.</span> <span class="toc-text">系统代理和虚拟网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">配置文件组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A7%A3%E8%AF%BB"><span class="toc-number">4.</span> <span class="toc-text">配置文件解读</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS"><span class="toc-number">4.1.</span> <span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E7%BB%84"><span class="toc-number">4.2.</span> <span class="toc-text">代理组</span></a></li></ol></li></ol>
                 </div>
             
             <hr />
-            <div itemprop="articleBody"><p>继朋友写过<a target="_blank" rel="noopener" href="https://mx-pai.github.io/2024/06/08/%E6%A2%AF%E5%AD%90%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">梯子使用指南</a> 和<a target="_blank" rel="noopener" href="https://mx-pai.github.io/2024/10/01/%E6%A2%AF%E5%AD%90%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%972-0/">梯子使用指南2.0</a>后，我对代理工具有了进一步的认识，此篇做一个阶段性总结。</p>
+            <div itemprop="articleBody"><p>继朋友写过<a target="_blank" rel="noopener" href="https://mx-pai.github.io/2024/06/08/%E6%A2%AF%E5%AD%90%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">梯子使用指南</a>和<a target="_blank" rel="noopener" href="https://mx-pai.github.io/2024/10/01/%E6%A2%AF%E5%AD%90%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%972-0/">梯子使用指南2.0</a>后，我对代理工具有了进一步的认识，此篇做一个阶段性总结。</p>
 <p>代理工具以 clash-verge-rev 为例。</p>
 <h2 id="局域网连接"><a href="#局域网连接" class="headerlink" title="局域网连接"></a>局域网连接</h2><p>常见使用场景是电脑上还没有代理工具，而获得代理工具通常也需要开启代理才更方便，于是形成一个闭环。<br>如果此时手机里有代理，可以开启手机的代理和相关局域网连接的许可。然后开启手机热点，电脑连接该热点。</p>
 <p>在电脑的系统设置中，配置代理相关项为手动设置，然后连接手机代理的端口，通常默认是<code>192.168.43.1:7890</code>，不同协议对应端口有变化。<br>在终端中配置相关环境变量:</p>
@@ -251,6 +251,8 @@
 <p>这样局域网连接就成功了。</p>
 <h2 id="系统代理和虚拟网卡"><a href="#系统代理和虚拟网卡" class="headerlink" title="系统代理和虚拟网卡"></a>系统代理和虚拟网卡</h2><p>只开启系统代理适用于浏览器和各类app使用。只开启虚拟网卡会比前者的适用范围中增加终端的支持。<br>对于 clash-verge-rev ，我在刚开始使用时，需要同时开启两者才可以正常使用，这属于bug。<br>在同时开启两者的情况，正常来说，虚拟网卡更底层，系统代理几乎没用。但是，有一些软件可以自己配置系统代理，此时，它会走系统代理，而不走虚拟网卡，比如telegram。<br>浏览器也会，但是这个情况会随着代理工具和浏览器的不同而发生变化。</p>
 <h2 id="配置文件组成"><a href="#配置文件组成" class="headerlink" title="配置文件组成"></a>配置文件组成</h2><p>一份yaml配置文件通常由3者共同管理。在订阅链接后，根据订阅链接从机场主那会获得一份配置，每次更新订阅会更新 <code>proxies</code> 和 <code>proxy-groups</code>,其他配置不会变动。但第一次获取配置时，视机场主提供了多少配置，都会一并获取，比如 <code>dns</code> 相关的配置。<br>通过在图形化界面自己的配置，通常会更改配置文件中最前面的相关项，完整可选配置项见<a target="_blank" rel="noopener" href="https://wiki.metacubex.one/config/">此</a>。<br>剩下的一些必须项由内核提供。</p>
+<h2 id="配置文件解读"><a href="#配置文件解读" class="headerlink" title="配置文件解读"></a>配置文件解读</h2><h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>如果启用该DNS,那么代理工具会替你做DNS解析，如果不是，那么会由系统DNS解析。<br>系统DNS一般在系统设置中进行设置，可以配置为自动（会由你的运营商进行DNS解析配置，可能会导致DNS污染）。<br>一般代理自己配置的DNS解析应该是最佳的，不需要改动。</p>
+<h3 id="代理组"><a href="#代理组" class="headerlink" title="代理组"></a>代理组</h3><p>代理组的 <code>type</code> 有 <code>select</code> <code>url-test</code> <code>fallback</code> 等种类，有时会一个代理组嵌套另外一个代理组。<br>在进行域名的按照顺序的规则匹配后，会匹配到一个代理组，然后根据这个代理组的内容进行节点或者代理组的选择，最终落到一个合适的节点。<br>假设某个服务只有美国节点可用，而你的该代理组最前面的节点却是其他地区，你可以直接删除该代理组的其他地区节点，保留需要的地区的节点达到过滤。<br>或者你可以直接把所有美国节点摘出来，单独写成一份配置，作为本地文件使用，不同订阅的节点可以合并。</p>
 </div>
         </div>
         
@@ -268,7 +270,7 @@
                     
                 </div>
                 <div class="pull-date">
-                    <time datetime="2025-10-09T00:47:35.429Z" itemprop="dateModified">最后编辑：2025-10-09</time>
+                    <time datetime="2025-10-14T12:07:42.159Z" itemprop="dateModified">最后编辑：2025-10-14</time>
                 </div>
             </div>
         </footer>
@@ -349,7 +351,7 @@
         <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
     </h4>
     <div class="textwidget">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E8%BF%9E%E6%8E%A5"><span class="toc-text">局域网连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E5%92%8C%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1"><span class="toc-text">系统代理和虚拟网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90"><span class="toc-text">配置文件组成</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E8%BF%9E%E6%8E%A5"><span class="toc-text">局域网连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E5%92%8C%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1"><span class="toc-text">系统代理和虚拟网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90"><span class="toc-text">配置文件组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A7%A3%E8%AF%BB"><span class="toc-text">配置文件解读</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS"><span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E7%BB%84"><span class="toc-text">代理组</span></a></li></ol></li></ol>
     </div>
 </aside>
                 
